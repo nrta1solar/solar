@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NRTA Solar — Powered by AK TRADERS (Master Enterprise v15.0)</title>
+  <title>NRTA Solar — Powered by AK TRADERS (Master Enterprise v14.0)</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -26,24 +26,21 @@
 
   <style>
     @media print {
-      body * { visibility: hidden !important; }
-      #printableInvoiceArea, #printableInvoiceArea * { visibility: visible !important; }
-      #printableInvoiceArea {
-        position: absolute !important;
-        left: 0 !important;
-        top: 0 !important;
-        width: 100% !important;
-        border: none !important;
-        margin: 0 !important;
-        padding: 10mm !important;
-      }
+      body * { visibility: hidden; }
+      #printableInvoiceArea, #printableInvoiceArea * { visibility: visible; }
+      #printableInvoiceArea { position: absolute; left: 0; top: 0; width: 100%; border: none !important; }
     }
+    .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
 
+  <!-- TOP BAR -->
   <header class="bg-solarDark text-white sticky top-0 z-50 shadow-lg border-b border-emerald-700/50">
     <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      
+      <!-- Brand Logo -->
       <div class="flex items-center space-x-2.5 cursor-pointer" onclick="navigateTab('home')">
         <div class="bg-solarYellow p-1.5 rounded-lg text-slate-900 shadow">
           <i data-lucide="sun" class="w-6 h-6"></i>
@@ -54,19 +51,40 @@
         </div>
       </div>
 
+      <!-- Desktop Nav Menus -->
       <nav class="hidden lg:flex items-center space-x-5 text-sm font-semibold">
-        <button onclick="navigateTab('home')" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="home" class="w-4 h-4"></i> <span>Home</span></button>
-        <button onclick="scrollToEstimator()" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="calculator" class="w-4 h-4"></i> <span>Cost & EMI</span></button>
-        <button onclick="navigateTab('register')" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="user-plus" class="w-4 h-4"></i> <span>Customer Reg</span></button>
-        <button onclick="navigateTab('sales-register')" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 bg-emerald-800/80 px-2.5 py-1 rounded-lg border border-emerald-600"><i data-lucide="briefcase" class="w-4 h-4"></i> <span>Join Sales Partner</span></button>
-        <button onclick="navigateTab('gallery')" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="image" class="w-4 h-4"></i> <span>Gallery</span></button>
-        <button onclick="navigateTab('contact')" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="phone-call" class="w-4 h-4"></i> <span>Contact Us</span></button>
+        <button onclick="navigateTab('home')" class="hover:text-solarYellow transition flex items-center gap-1.5">
+          <i data-lucide="home" class="w-4 h-4"></i> <span>Home</span>
+        </button>
+        <button onclick="scrollToEstimator()" class="hover:text-solarYellow transition flex items-center gap-1.5">
+          <i data-lucide="calculator" class="w-4 h-4"></i> <span>Cost & EMI</span>
+        </button>
+        <button onclick="navigateTab('register')" class="hover:text-solarYellow transition flex items-center gap-1.5">
+          <i data-lucide="user-plus" class="w-4 h-4"></i> <span>Customer Reg</span>
+        </button>
+        <button onclick="navigateTab('sales-register')" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 bg-emerald-800/80 px-2.5 py-1 rounded-lg border border-emerald-600">
+          <i data-lucide="briefcase" class="w-4 h-4"></i> <span>Join Sales Partner</span>
+        </button>
+        <button onclick="navigateTab('gallery')" class="hover:text-solarYellow transition flex items-center gap-1.5">
+          <i data-lucide="image" class="w-4 h-4"></i> <span>Gallery</span>
+        </button>
+        <button onclick="navigateTab('contact')" class="hover:text-solarYellow transition flex items-center gap-1.5">
+          <i data-lucide="phone-call" class="w-4 h-4"></i> <span>Contact Us</span>
+        </button>
       </nav>
 
+      <!-- Active User Bar / Clean Login -->
       <div class="flex items-center space-x-3">
+        <button onclick="toggleLanguage()" class="border border-emerald-400/40 text-xs px-2.5 py-1 rounded bg-emerald-800/70 font-bold hover:bg-emerald-700 transition">
+          বাং / EN
+        </button>
+        
         <div id="authHeaderBlock">
-          <button onclick="openLoginModal()" class="bg-solarYellow text-slate-950 font-black text-xs px-4 py-2 rounded-lg shadow hover:bg-amber-400 transition flex items-center gap-1.5"><i data-lucide="log-in" class="w-4 h-4"></i> <span>Login</span></button>
+          <button onclick="openLoginModal()" class="bg-solarYellow text-slate-950 font-black text-xs px-4 py-2 rounded-lg shadow hover:bg-amber-400 transition flex items-center gap-1.5">
+            <i data-lucide="log-in" class="w-4 h-4"></i> <span>Login</span>
+          </button>
         </div>
+
         <div id="userHeaderBlock" class="hidden items-center space-x-2">
           <span id="headerUserName" class="text-xs font-bold text-amber-300 font-mono"></span>
           <button onclick="goToCurrentPortal()" class="bg-emerald-800 text-xs px-2.5 py-1 rounded font-bold hover:bg-emerald-700">পোর্টাল</button>
@@ -76,137 +94,1452 @@
     </div>
   </header>
 
+  <!-- MAIN VIEW CONTAINER -->
   <main class="flex-grow">
-    <!-- HOME SECTION -->
+    
+    <!-- 1. COMPREHENSIVE HOME PAGE -->
     <section id="view-home" class="tab-view block">
       <div class="bg-gradient-to-b from-solarDark to-solarGreen text-white py-16 px-4 text-center">
         <div class="max-w-4xl mx-auto space-y-4">
-          <h1 class="text-3xl md:text-5xl font-black leading-tight">সৌরশক্তিতে বাঁচান মাসিক বিদ্যুৎ বিল, পান ₹৭৮,০০০ পর্যন্ত সরকারি সাবসিডি</h1>
-          <p class="text-emerald-100 text-sm md:text-base max-w-2xl mx-auto">NRTA SOLAR (Powered by AK TRADERS)-এর সাথে আপনার বাড়ি বা কারখানায় বসান আধুনিক সোলার প্ল্যান্ট।</p>
-          <button onclick="scrollToEstimator()" class="bg-solarYellow text-slate-950 font-black px-6 py-3 rounded-xl shadow-lg hover:bg-amber-400 transition">খরচ ও EMI হিসাব করুন</button>
+          <span class="inline-block bg-emerald-800/80 border border-amber-400/40 px-3.5 py-1 rounded-full text-xs font-bold text-amber-300 tracking-wide uppercase">
+            ⚡ ত্রিপুরা ও উত্তর-পূর্ব ভারতের অনুমোদিত সোলার ইপিসি পার্টনার
+          </span>
+          <h1 class="text-3xl md:text-5xl font-black leading-tight">
+            সৌরশক্তিতে বাঁচান মাসিক বিদ্যুৎ বিল, পান ₹৭৮,০০০ পর্যন্ত সরকারি সাবসিডি
+          </h1>
+          <p class="text-emerald-100 text-sm md:text-base max-w-2xl mx-auto">
+            বিদ্যুতের আকাশছোঁয়া বিল ও লোডশেডিং থেকে মুক্তি পান। NRTA SOLAR (Powered by AK TRADERS)-এর সাথে আপনার বাড়ি, দোকান বা কারখানায় বসান ১ থেকে ১০+ কিলোওয়াটের আধুনিক সোলার প্ল্যান্ট।
+          </p>
+          <div class="pt-4 flex justify-center gap-3">
+            <button onclick="scrollToEstimator()" class="bg-solarYellow text-slate-950 font-black px-6 py-3 rounded-xl shadow-lg hover:bg-amber-400 transition flex items-center gap-2">
+              <i data-lucide="calculator" class="w-5 h-5"></i> <span>খরচ ও EMI হিসাব করুন</span>
+            </button>
+            <button onclick="navigateTab('register')" class="border border-white/40 bg-white/10 hover:bg-white/20 font-bold px-6 py-3 rounded-xl transition">
+              <span>কাস্টমার রেজিস্ট্রেশন</span>
+            </button>
+          </div>
         </div>
       </div>
-      
-      <!-- Embedded Estimator Box -->
-      <div id="homeEstimatorBox" class="max-w-5xl mx-auto px-4 py-12">
-        <div class="bg-white rounded-3xl shadow-xl border p-6">
-          <h2 class="text-xl font-bold mb-4">সোলার খরচ ও সহজ লোন EMI ক্যালকুলেটর</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-            <div>
-              <label class="font-bold block mb-1">সোলার ক্যাপাসিটি: <span id="capacitySliderLabel" class="text-solarGreen font-black">2.0 kW</span></label>
-              <input type="range" id="estCapacityRange" min="1.0" max="10.0" step="1.0" value="2.0" oninput="updateCapacityEstimator(this.value)" class="w-full accent-solarGreen">
+
+      <!-- Educational Knowledge Base -->
+      <div class="max-w-6xl mx-auto px-4 py-14 space-y-12">
+        <div>
+          <div class="text-center max-w-2xl mx-auto mb-8">
+            <h2 class="text-2xl md:text-3xl font-black text-slate-800">কেন সোলার ইনস্টল করা আপনার জীবনের সেরা সিদ্ধান্ত?</h2>
+            <p class="text-xs md:text-sm text-slate-500 mt-1">সোলার প্যানেল লাগানো মানে শুধু আলো জ্বালানো নয়, এটি একটি নিশ্চিত ও লাভজনক দীর্ঘমেয়াদী বিনিয়োগ</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="w-10 h-10 bg-emerald-100 text-solarGreen rounded-xl flex items-center justify-center font-bold mb-3">
+                <i data-lucide="trending-down" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-bold text-slate-800 text-base mb-1">৯০% পর্যন্ত বিদ্যুৎ বিল সাশ্রয়</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">দিনের বেলায় সূর্যের আলো দিয়ে বাড়ির সমস্ত লোড চলবে, ফলে সরকারি গ্রিডের বিদ্যুৎ খরচ প্রায় শূন্যে নেমে আসবে।</p>
             </div>
-            <div class="bg-slate-50 p-4 rounded-2xl border">
-              <span class="text-xs text-slate-500 block">সাবসিডি বাদে আসল দেয় মূল্য:</span>
-              <span id="resNet" class="text-2xl font-black text-solarGreen">₹ 65,000</span>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center font-bold mb-3">
+                <i data-lucide="banknote" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-bold text-slate-800 text-base mb-1">PM Surya Ghar সাবসিডি</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">১kW-তে ₹৩০,০০০, ২kW-তে ₹৬০,০০০ এবং ৩kW থেকে ১০kW পর্যন্ত সরাসরি ₹৭৮,০০০ সরকারি সাবসিডি নিশ্চিত।</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center font-bold mb-3">
+                <i data-lucide="calendar-check" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-bold text-slate-800 text-base mb-1">২৫ বছরের দীর্ঘস্থায়ী ক্ষমতা</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">DCR সার্টিফাইড Mono PERC প্যানেল ২৫ বছর বিদ্যুৎ উৎপাদন করে। মাত্র ৩-৪ বছরে সম্পূর্ণ প্রজেক্ট খরচ উঠে আসে।</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="w-10 h-10 bg-purple-100 text-purple-700 rounded-xl flex items-center justify-center font-bold mb-3">
+                <i data-lucide="shield" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-bold text-slate-800 text-base mb-1">নিরবচ্ছিন্ন ব্যাকআপ সুবিধা</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">ঝড়বৃষ্টি বা লোডশেডিংয়ে অন্ধকার নয়। ব্যাটারি ও সোলার সমন্বয়ে ফ্যান, লাইট, টিভি ও পানির পাম্প চলবে স্বাভাবিক নিয়মে।</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Differences: On-Grid vs Off-Grid vs Hybrid -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+          <div class="border-b pb-4 mb-6">
+            <h2 class="text-xl md:text-2xl font-black text-slate-800">কোন সোলার সিস্টেমটি আপনার জন্য উপযুক্ত? (তফাৎ জানুন)</h2>
+            <p class="text-xs md:text-sm text-slate-500">আপনার এলাকার বিদ্যুৎ সরবরাহ এবং প্রয়োজনের ওপর ভিত্তি করে সঠিক সিস্টেম বেছে নিন</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs leading-relaxed">
+            <div class="border border-emerald-300 rounded-2xl p-5 bg-emerald-50/40 flex flex-col justify-between">
+              <div>
+                <span class="bg-solarGreen text-white text-[10px] font-bold px-2.5 py-1 rounded uppercase mb-2 inline-block">১. অন-গ্রিড (On-Grid System)</span>
+                <h4 class="font-bold text-slate-800 text-base mb-2">নেট-মিটারিং সহ সরাসরি গ্রিড সংযোগ</h4>
+                <p class="text-slate-600 mb-3">এতে ব্যাটারি দরকার নেই। অতিরিক্ত বিদ্যুৎ TSECL গ্রিডে যায় এবং মিটারে ইউনিট জমা হয়। রাতে গ্রিড থেকে ইউনিট ফেরত পাওয়া যায়।</p>
+                <ul class="space-y-1.5 text-slate-700 font-medium">
+                  <li class="flex items-center gap-1.5 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> সরকারি সাবসিডি পাওয়া যায় (₹৭৮,০০০ পর্যন্ত)</li>
+                  <li class="flex items-center gap-1.5 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> সর্বনিম্ন খরচ ও কোনো ব্যাটারি মেইনটেন্যান্স নেই</li>
+                </ul>
+              </div>
+              <div class="mt-4 pt-3 border-t font-semibold text-slate-500 text-[11px]">
+                উপযুক্ত: শহর ও যেসব এলাকায় লোডশেডিং কম।
+              </div>
+            </div>
+
+            <div class="border border-amber-300 rounded-2xl p-5 bg-amber-50/40 flex flex-col justify-between">
+              <div>
+                <span class="bg-amber-600 text-white text-[10px] font-bold px-2.5 py-1 rounded uppercase mb-2 inline-block">২. অফ-গ্রিড (Off-Grid System)</span>
+                <h4 class="font-bold text-slate-800 text-base mb-2">সম্পূর্ণ স্বাধীন সোলার + ব্যাটারি</h4>
+                <p class="text-slate-600 mb-3">সরকারি গ্রিডের কোনো নির্ভরতা নেই। দিনের আলোতে প্যানেল দিয়ে লোড চলবে ও ব্যাটারি চার্জ হবে। রাতে বিদ্যুৎ ব্যাটারি থেকে আসবে।</p>
+                <ul class="space-y-1.5 text-slate-700 font-medium">
+                  <li class="flex items-center gap-1.5 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> ২৪ ঘণ্টা নিরবচ্ছিন্ন বিদ্যুৎ (জিরো লোডশেডিং)</li>
+                  <li class="flex items-center gap-1.5 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> রিমোট এলাকা বা সেচের পাম্পের জন্য সেরা</li>
+                </ul>
+              </div>
+              <div class="mt-4 pt-3 border-t font-semibold text-slate-500 text-[11px]">
+                উপযুক্ত: পাহাড়ি এলাকা, গ্রাম এবং ঘন ঘন বিদ্যুৎ বিভ্রাটের অঞ্চল।
+              </div>
+            </div>
+
+            <div class="border border-blue-300 rounded-2xl p-5 bg-blue-50/40 flex flex-col justify-between">
+              <div>
+                <span class="bg-blue-700 text-white text-[10px] font-bold px-2.5 py-1 rounded uppercase mb-2 inline-block">৩. হাইব্রিড (Hybrid System)</span>
+                <h4 class="font-bold text-slate-800 text-base mb-2">অন-গ্রিড + ব্যাটারি ব্যাকআপ (সর্বোচ্চ সুরক্ষা)</h4>
+                <p class="text-slate-600 mb-3">সাধারণ সময়ে নেট মিটারিং দিয়ে বিল সাশ্রয় করবে এবং বিদ্যুৎ চলে গেলে স্বয়ংক্রিয়ভাবে ব্যাটারি ব্যাকআপে ট্রান্সফার হবে।</p>
+                <ul class="space-y-1.5 text-slate-700 font-medium">
+                  <li class="flex items-center gap-1.5 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> বিল সাশ্রয় এবং পাওয়ার ব্যাকআপ দুটোই নিশ্চিত</li>
+                  <li class="flex items-center gap-1.5 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> হাইব্রিড ইনভার্টার দিয়ে ১০০% অটোমেশন</li>
+                </ul>
+              </div>
+              <div class="mt-4 pt-3 border-t font-semibold text-slate-500 text-[11px]">
+                উপযুক্ত: বাণিজ্যিক শোরুম, হাসপাতাল, স্কুল ও প্রিমিয়াম রেসিডেন্সিয়াল।
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. HOME EMBEDDED COST & SOLAR LOAN EMI ESTIMATOR -->
+        <div id="homeEstimatorBox" class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+          <div class="bg-slate-900 text-white p-6 flex justify-between items-center">
+            <div>
+              <h2 class="text-xl font-bold flex items-center gap-2">
+                <i data-lucide="calculator" class="text-solarYellow"></i> 
+                <span>সোলার খরচ ও সহজ লোন EMI ক্যালকুলেটর (১ kW থেকে ১০ kW)</span>
+              </h2>
+              <p class="text-xs text-slate-400 mt-0.5">NRTA Solar (Powered by AK TRADERS) — অ্যাডমিন লাইভ প্রাইসিং অনুযায়ী প্রাক্কলন</p>
+            </div>
+            <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-700 px-3 py-1 rounded-full font-mono">
+              Tripura Grid Ready
+            </span>
+          </div>
+
+          <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-7 space-y-6">
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    সোলার ক্যাপাসিটি নির্বাচন করুন: <span id="capacitySliderLabel" class="text-solarGreen text-base font-black">2.0 kW</span>
+                  </label>
+                  <span id="billEstLabel" class="text-xs font-bold text-slate-500 font-mono">মাসিক বিল: ~₹2,500</span>
+                </div>
+                <input type="range" id="estCapacityRange" min="1.0" max="10.0" step="1.0" value="2.0" 
+                       oninput="updateCapacityEstimator(this.value)" class="w-full accent-solarGreen cursor-pointer">
+                <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-semibold">
+                  <span>1 kW</span>
+                  <span>2 kW</span>
+                  <span>3 kW</span>
+                  <span>5 kW</span>
+                  <span>7 kW</span>
+                  <span>10 kW</span>
+                </div>
+              </div>
+
+              <!-- System Type & Dynamic Pricing Dropdown -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">সিস্টেম টাইপ</label>
+                  <select id="estSystemType" onchange="runDynamicEstimation()" class="w-full border rounded-xl p-2.5 text-sm bg-slate-50 font-medium outline-none">
+                    <option value="ongrid">On-Grid (গ্রিড-টাইড ও নেট মিটারিং)</option>
+                    <option value="hybrid">Hybrid (সোলার + গ্রিড + ব্যাটারি)</option>
+                    <option value="offgrid">Off-Grid (স্বাধীন ব্যাটারি ব্যাকআপ)</option>
+                  </select>
+                </div>
+
+                <div id="estBatteryBox" class="hidden">
+                  <label class="block text-xs font-bold text-slate-700 mb-1">ব্যাটারি ও ইনভার্টার অপশন (Admin Pricing)</label>
+                  <select id="estCustomItemSelect" onchange="runDynamicEstimation()" class="w-full border rounded-xl p-2.5 text-sm bg-slate-50 font-medium outline-none">
+                  </select>
+                </div>
+              </div>
+
+              <!-- DEDICATED SOLAR LOAN EMI CALCULATOR (UP TO 10 YEARS) -->
+              <div class="border-t border-slate-200 pt-5 bg-emerald-50/50 p-4 rounded-2xl border">
+                <div class="flex items-center gap-2 mb-3">
+                  <i data-lucide="percent" class="w-4 h-4 text-solarGreen"></i>
+                  <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider">সোলার লোন ও সহজ মাসিক কিস্তি (EMI) ক্যালকুলেটর (১ থেকে ১০ বছর)</h4>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  <div>
+                    <label class="font-bold text-slate-600 block mb-1">লোন অ্যামাউন্ট (টাকা):</label>
+                    <input type="number" id="emiLoanAmount" value="65000" oninput="calculateSolarEMI()" class="w-full border rounded-xl p-2 font-bold font-mono">
+                  </div>
+                  <div>
+                    <label class="font-bold text-slate-600 block mb-1">বার্ষিক সুদের হার (%):</label>
+                    <input type="number" step="0.5" id="emiInterestRate" value="8.5" oninput="calculateSolarEMI()" class="w-full border rounded-xl p-2 font-bold font-mono">
+                  </div>
+                  <div>
+                    <label class="font-bold text-slate-600 block mb-1">মেয়াদ (বছর):</label>
+                    <select id="emiTenureYears" onchange="calculateSolarEMI()" class="w-full border rounded-xl p-2 font-bold bg-white">
+                      <option value="1">১ বছর (12 মাস)</option>
+                      <option value="2">২ বছর (24 মাস)</option>
+                      <option value="3">৩ বছর (36 মাস)</option>
+                      <option value="5" selected>৫ বছর (60 মাস)</option>
+                      <option value="7">৭ বছর (84 মাস)</option>
+                      <option value="10">১০ বছর (120 মাস)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mt-3.5 bg-white p-3 rounded-xl border border-emerald-200 flex justify-between items-center text-xs">
+                  <div>
+                    <span class="text-slate-500 font-medium block">সম্ভাব্য মাসিক কিস্তি (Estimated Monthly EMI):</span>
+                    <span id="emiMonthlyDisplay" class="text-lg font-black text-solarGreen">₹ 1,334 / মাস</span>
+                  </div>
+                  <div class="text-right text-[11px] text-slate-600">
+                    <span>মোট সুদ: <b id="emiTotalInterestDisplay">₹ 15,040</b></span><br>
+                    <span>মোট পরিশোধ: <b id="emiTotalPayableDisplay">₹ 80,040</b></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right 5 cols: Output Card -->
+            <div class="lg:col-span-5 bg-gradient-to-br from-slate-50 to-emerald-50/40 border border-emerald-200/80 rounded-2xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="space-y-3">
+                <div class="flex justify-between items-center text-xs pb-2 border-b border-slate-200">
+                  <span class="text-slate-500 font-medium">নির্বাচিত সোলার প্ল্যান্ট:</span>
+                  <span id="resCapacity" class="font-black text-solarDark text-base">2.0 kW</span>
+                </div>
+                <div class="flex justify-between items-center text-xs pb-2 border-b border-slate-200">
+                  <span class="text-slate-500 font-medium">ছাদের ন্যূনতম ফাঁকা জায়গা:</span>
+                  <span id="resArea" class="font-bold text-slate-700">~200 বর্গফুট</span>
+                </div>
+                <div class="flex justify-between items-center text-xs pb-2 border-b border-slate-200">
+                  <span class="text-slate-500 font-medium">মোট প্রাক্কলিত প্যাকেজ মূল্য:</span>
+                  <span id="resGross" class="font-black text-slate-800 text-sm">₹ 1,25,000</span>
+                </div>
+                <div class="flex justify-between items-center text-xs pb-2 border-b border-slate-200 text-emerald-700">
+                  <span class="font-bold">PM Surya Ghar Subsidy:</span>
+                  <span id="resSubsidy" class="font-black text-sm">- ₹ 60,000</span>
+                </div>
+                
+                <div class="bg-white p-3 rounded-xl border border-emerald-300 shadow-sm text-center">
+                  <span class="text-[11px] font-bold text-slate-500 uppercase block">সাবসিডি বাদে আসল দেয় মূল্য</span>
+                  <span id="resNet" class="text-2xl font-black text-solarGreen block">₹ 65,000</span>
+                  <span id="resMonthlySaving" class="text-[10px] text-emerald-800 font-semibold block mt-0.5">
+                    মাসিক বিদ্যুৎ সাশ্রয়: ~₹ 2,400 | ৩ বছরে সম্পূর্ণ টাকা ফেরত!
+                  </span>
+                </div>
+              </div>
+
+              <div class="pt-4">
+                <button onclick="navigateTab('register')" class="w-full bg-solarGreen text-white font-black py-3 rounded-xl shadow-md hover:bg-solarDark transition flex items-center justify-center gap-2">
+                  <span>এই সেটআপে আবেদন করুন</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. CUSTOMER REGISTRATION -->
+    <section id="view-register" class="tab-view hidden max-w-lg mx-auto px-4 py-10">
+      <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 md:p-8">
+        
+        <div class="text-center mb-6">
+          <div class="w-12 h-12 bg-emerald-100 text-solarGreen rounded-2xl flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="user-check" class="w-6 h-6"></i>
+          </div>
+          <h2 class="text-2xl font-black text-slate-800">Customer Registration</h2>
+          <p class="text-xs text-slate-500 mt-1">
+            সহজ ১-মিনিট সাইন-আপ (বাকি টেকনিক্যাল ফর্ম ও প্রশ্ন ভেতরে পূরণ করবেন)
+          </p>
+        </div>
+
+        <form id="customerSignupForm" onsubmit="handleCustomerSignup(event)" class="space-y-4 text-sm">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Full Name (বিদ্যুৎ বিল অনুযায়ী নাম) *</label>
+            <input type="text" id="regFullName" required placeholder="যেমন: Tamal Dey" class="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-solarGreen">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Aadhaar-Linked Mobile Number *</label>
+            <input type="tel" id="regMobile" pattern="[0-9]{10}" maxlength="10" required placeholder="১০ ডিজিট মোবাইল নম্বর" class="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-solarGreen">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Email ID (ঐচ্ছিক)</label>
+            <input type="email" id="regEmail" placeholder="example@gmail.com" class="w-full border rounded-xl p-3 outline-none">
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Set 6-Digit PIN *</label>
+              <input type="password" id="regPin" pattern="[0-9]{6}" maxlength="6" required placeholder="••••••" class="w-full border rounded-xl p-3 outline-none text-center font-mono tracking-widest focus:ring-2 focus:ring-solarGreen">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Confirm PIN *</label>
+              <input type="password" id="regConfirmPin" pattern="[0-9]{6}" maxlength="6" required placeholder="••••••" class="w-full border rounded-xl p-3 outline-none text-center font-mono tracking-widest focus:ring-2 focus:ring-solarGreen">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">
+              Sales Referral Code <span class="text-slate-400 font-normal">(যদি থাকে, যেমন: NRTA-101)</span>
+            </label>
+            <input type="text" id="regReferralCode" placeholder="যেমন: NRTA-101" class="w-full border rounded-xl p-3 uppercase font-mono tracking-wider outline-none">
+          </div>
+
+          <button type="submit" class="w-full bg-solarDark text-white font-black py-3.5 rounded-xl shadow-lg hover:bg-emerald-900 transition flex items-center justify-center gap-2">
+            <i data-lucide="check" class="w-5 h-5"></i>
+            <span>রেজিস্ট্রেশন সম্পন্ন করুন</span>
+          </button>
+        </form>
+
+        <div class="text-center mt-4 text-xs text-slate-500">
+          ইতিমধ্যে অ্যাকাউন্ট আছে? <button onclick="openLoginModal()" class="text-solarGreen font-bold underline">লগইন করুন</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SALES PARTNER REGISTRATION -->
+    <section id="view-sales-register" class="tab-view hidden max-w-lg mx-auto px-4 py-10">
+      <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 md:p-8">
+        <div class="text-center mb-6">
+          <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="briefcase" class="w-6 h-6"></i>
+          </div>
+          <h2 class="text-2xl font-black text-slate-800">Sales Partner Application</h2>
+          <p class="text-xs text-slate-500 mt-1">
+            NRTA Solar (AK TRADERS)-এর সাথে অনুমোদিত সেলস পার্টনার হিসেবে যোগ দিন
+          </p>
+        </div>
+
+        <form onsubmit="handleSalesPartnerApplication(event)" class="space-y-4 text-sm">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">আপনার পূর্ণ নাম *</label>
+            <input type="text" id="salesRegName" required placeholder="যেমন: Amit Sharma" class="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-solarGreen">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">মোবাইল নম্বর (লগইন আইডি) *</label>
+            <input type="tel" id="salesRegMobile" pattern="[0-9]{10}" maxlength="10" required placeholder="১০ ডিজিট মোবাইল নম্বর" class="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-solarGreen">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">কাজের এলাকা / জেলা (District) *</label>
+            <select id="salesRegDistrict" class="w-full border rounded-xl p-3 outline-none">
+              <option>Gomati District (Udaipur)</option>
+              <option>West Tripura (Agartala)</option>
+              <option>South Tripura (Belonia)</option>
+              <option>Sepahijala District</option>
+              <option>Khowai District</option>
+              <option>Dhalai District</option>
+              <option>North Tripura & Unakoti</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Set 6-Digit PIN *</label>
+              <input type="password" id="salesRegPin" pattern="[0-9]{6}" maxlength="6" required placeholder="••••••" class="w-full border rounded-xl p-3 outline-none text-center font-mono tracking-widest focus:ring-2 focus:ring-solarGreen">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Confirm PIN *</label>
+              <input type="password" id="salesRegConfirmPin" pattern="[0-9]{6}" maxlength="6" required placeholder="••••••" class="w-full border rounded-xl p-3 outline-none text-center font-mono tracking-widest focus:ring-2 focus:ring-solarGreen">
+            </div>
+          </div>
+
+          <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
+            <b>নোট:</b> আবেদন সাবমিট করার পর অ্যাডমিন ব্যাকগ্রাউন্ড ভেরিফাই করে আপনাকে ইউনিক <b>Referral Code</b> অ্যাসাইন ও অনুমোদন দেবেন। এরপরই আপনি পোর্টাল অ্যাক্সেস করতে পারবেন।
+          </div>
+
+          <button type="submit" class="w-full bg-solarGreen text-white font-black py-3.5 rounded-xl shadow-lg hover:bg-solarDark transition flex items-center justify-center gap-2">
+            <i data-lucide="send" class="w-5 h-5"></i>
+            <span>আবেদন সাবমিট করুন</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 4. PUBLIC GALLERY SECTION -->
+    <section id="view-gallery" class="tab-view hidden max-w-6xl mx-auto px-4 py-12">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+          Our Solar Projects Gallery
+        </span>
+        <h2 class="text-2xl md:text-4xl font-black text-slate-800 mt-2">আমাদের সফল ইনস্টলেশনের বাস্তব ছবি</h2>
+        <p class="text-xs md:text-sm text-slate-500 mt-1">ত্রিপুরার বিভিন্ন বাড়ি, দোকান ও কারখানায় NRTA Solar (AK TRADERS)-এর সম্পন্ন হওয়া প্ল্যান্ট</p>
+      </div>
+
+      <div id="publicGalleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      </div>
+    </section>
+
+    <!-- 5. CONTACT US -->
+    <section id="view-contact" class="tab-view hidden max-w-4xl mx-auto px-4 py-10">
+      <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 md:p-8">
+        <h2 class="text-2xl font-black text-slate-800 mb-4 flex items-center gap-2">
+          <i data-lucide="map-pin" class="text-solarGreen"></i> যোগাযোগ — NRTA Solar (Powered by AK TRADERS)
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-slate-700">হেড অফিস ও শোরুম:</h4>
+              <p class="text-slate-600" id="contactDisplayAddress">NRTA Solar (AK TRADERS), Udaipur, Gomati District, Tripura - 799120</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-700">সরাসরি কল ও কাস্টমার কেয়ার:</h4>
+              <p class="text-solarGreen font-bold text-base" id="contactDisplayPhone">+91 98634 02515</p>
+              <p class="text-slate-600 font-bold text-sm" id="contactDisplaySecondaryPhone">Secondary: +91 98765 43210</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-700">অফিসিয়াল ইমেইল:</h4>
+              <p class="text-slate-600 font-medium" id="contactDisplayEmail">contact@nrtasolar.com</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-700">জিএসটি বিবরণ:</h4>
+              <p class="text-slate-600 font-mono">GSTIN: 16AAXFA9876Q1ZB | State: Tripura (16)</p>
+            </div>
+            <button onclick="startWhatsAppDirectChat()" class="bg-emerald-600 text-white font-bold px-5 py-2.5 rounded-xl shadow flex items-center gap-2 hover:bg-emerald-700">
+              <i data-lucide="message-square" class="w-4 h-4"></i> ডিরেক্ট WhatsApp চ্যাট শুরু করুন
+            </button>
+          </div>
+          <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+            <h4 class="font-bold text-slate-800 mb-2">সরাসরি মেসেজ পাঠান:</h4>
+            <div class="space-y-3">
+              <input type="text" placeholder="আপনার নাম" class="w-full border rounded-lg p-2.5 text-xs">
+              <input type="tel" placeholder="মোবাইল নম্বর" class="w-full border rounded-lg p-2.5 text-xs">
+              <textarea placeholder="আপনার সোলার রিকোয়ারমেন্ট..." rows="3" class="w-full border rounded-lg p-2.5 text-xs"></textarea>
+              <button onclick="alert('আপনার মেসেজ পাঠানো হয়েছে! প্রতিনিধি যোগাযোগ করবেন।')" class="w-full bg-slate-900 text-white font-bold py-2 rounded-lg text-xs">সেন্ড মেসেজ</button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CUSTOMER REGISTRATION -->
-    <section id="view-register" class="tab-view hidden max-w-lg mx-auto px-4 py-10">
-      <div class="bg-white rounded-3xl shadow-xl border p-6">
-        <h2 class="text-2xl font-black text-slate-800 mb-4 text-center">Customer Registration</h2>
-        <form onsubmit="handleCustomerSignup(event)" class="space-y-4 text-sm">
-          <input type="text" id="regFullName" required placeholder="পূর্ণ নাম" class="w-full border rounded-xl p-3">
-          <input type="tel" id="regMobile" required placeholder="মোবাইল নম্বর" class="w-full border rounded-xl p-3">
-          <input type="password" id="regPin" required placeholder="৬-ডিজিট পিন" class="w-full border rounded-xl p-3">
-          <input type="password" id="regConfirmPin" required placeholder="পিন কনফার্ম করুন" class="w-full border rounded-xl p-3">
-          <input type="text" id="regReferralCode" placeholder="সেলস রেফারেল কোড (যেমন: NRTA-101)" class="w-full border rounded-xl p-3 uppercase font-mono">
-          <button type="submit" class="w-full bg-solarDark text-white font-black py-3 rounded-xl">রেজিস্ট্রেশন করুন</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- SALES REGISTER -->
-    <section id="view-sales-register" class="tab-view hidden max-w-lg mx-auto px-4 py-10">
-      <div class="bg-white rounded-3xl shadow-xl border p-6">
-        <h2 class="text-2xl font-black text-slate-800 mb-4 text-center">Sales Partner Application</h2>
-        <form onsubmit="handleSalesPartnerApplication(event)" class="space-y-4 text-sm">
-          <input type="text" id="salesRegName" required placeholder="আপনার নাম" class="w-full border rounded-xl p-3">
-          <input type="tel" id="salesRegMobile" required placeholder="মোবাইল নম্বর" class="w-full border rounded-xl p-3">
-          <select id="salesRegDistrict" class="w-full border rounded-xl p-3"><option>Udaipur (Gomati)</option><option>Agartala (West Tripura)</option></select>
-          <input type="password" id="salesRegPin" required placeholder="৬-ডিজিট পিন" class="w-full border rounded-xl p-3">
-          <input type="password" id="salesRegConfirmPin" required placeholder="পিন কনফার্ম করুন" class="w-full border rounded-xl p-3">
-          <button type="submit" class="w-full bg-solarGreen text-white font-black py-3 rounded-xl">আবেদন সাবমিট করুন</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section id="view-gallery" class="tab-view hidden max-w-6xl mx-auto px-4 py-12">
-      <h2 class="text-3xl font-black text-center mb-8">আমাদের সফল ইনস্টলেশনের বাস্তব ছবি</h2>
-      <div id="publicGalleryGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-6"></div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="view-contact" class="tab-view hidden max-w-4xl mx-auto px-4 py-10">
-      <div class="bg-white rounded-3xl shadow-xl border p-6">
-        <h2 class="text-2xl font-black mb-4">যোগাযোগ — NRTA Solar (AK TRADERS)</h2>
-        <p id="contactDisplayAddress" class="text-sm text-slate-600 mb-2">Udaipur, Gomati District, Tripura - 799120</p>
-        <p id="contactDisplayPhone" class="text-solarGreen font-bold">+91 98634 02515</p>
-      </div>
-    </section>
-
-    <!-- CUSTOMER PORTAL -->
+    <!-- 6. CUSTOMER PORTAL -->
     <section id="view-customer-portal" class="tab-view hidden max-w-6xl mx-auto px-4 py-8">
-      <div class="bg-solarDark text-white p-6 rounded-3xl mb-6 flex justify-between items-center">
-        <h2 class="text-xl font-black" id="custPortalName">স্বাগতম, Tamal Dey</h2>
-        <button onclick="logoutUser()" class="bg-red-600 text-xs px-3 py-1.5 rounded font-bold">লগআউট</button>
+      
+      <!-- Top Bar -->
+      <div class="bg-gradient-to-r from-solarDark to-solarGreen text-white p-6 rounded-3xl shadow-lg mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <span class="text-xs text-amber-300 font-bold uppercase tracking-wider">Customer Private Workspace</span>
+          <h2 class="text-2xl font-black mt-0.5" id="custPortalName">স্বাগতম, Tamal Dey</h2>
+          <p class="text-xs text-emerald-200" id="custPortalId">Mobile: 9876543210</p>
+        </div>
+        <button onclick="logoutUser()" class="border border-white/30 text-xs px-4 py-2 rounded-xl hover:bg-white/10 font-bold">
+          লগআউট
+        </button>
       </div>
-      <div class="bg-white p-6 rounded-3xl border shadow-sm">
-        <h3 class="font-bold mb-4">ডকুমেন্টস আপলোড হাব (৮ স্লট)</h3>
-        <input type="file" onchange="handleDocUpload(this, 'aadhaar_card', 'আধার কার্ড')" class="text-xs">
-        <span id="docTag-aadhaar_card" class="text-xs text-emerald-600 font-bold block mt-1">পেন্ডিং</span>
+
+      <!-- Live Pipeline (Green = Completed, Red = Pending) -->
+      <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 mb-6">
+        <h3 class="font-black text-slate-800 text-base mb-3 flex items-center gap-2">
+          <i data-lucide="activity" class="text-solarGreen"></i> ৮-ধাপের প্রজেক্ট ট্র্যাকিং (সবুজ = সম্পন্ন | লাল = পেন্ডিং)
+        </h3>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 text-center text-xs">
+          <div class="p-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold shadow-sm">
+            <div class="w-3 h-3 bg-emerald-500 rounded-full mx-auto mb-1 animate-pulse"></div>
+            <span>1. অ্যাপ্লিকেশন জমা</span>
+            <span class="block text-[9px] text-emerald-700 font-semibold mt-0.5">সবুজ (Done)</span>
+          </div>
+
+          <div class="p-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold shadow-sm">
+            <div class="w-3 h-3 bg-emerald-500 rounded-full mx-auto mb-1 animate-pulse"></div>
+            <span>2. সাইট সার্ভে</span>
+            <span class="block text-[9px] text-emerald-700 font-semibold mt-0.5">সবুজ (Done)</span>
+          </div>
+
+          <div class="p-2.5 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-900 font-bold shadow-sm">
+            <div class="w-3 h-3 bg-rose-500 rounded-full mx-auto mb-1"></div>
+            <span>3. ডকুমেন্টস ও সাইন</span>
+            <span class="block text-[9px] text-rose-700 font-semibold mt-0.5">লাল (পেন্ডিং)</span>
+          </div>
+
+          <div class="p-2.5 rounded-xl border-2 border-rose-400 bg-rose-50 text-rose-800 font-medium">
+            <div class="w-3 h-3 bg-rose-400 rounded-full mx-auto mb-1"></div>
+            <span>4. বুকিং অ্যাডভান্স</span>
+            <span class="block text-[9px] text-rose-600 font-semibold mt-0.5">লাল (পেন্ডিং)</span>
+          </div>
+
+          <div class="p-2.5 rounded-xl border-2 border-rose-400 bg-rose-50 text-rose-800 font-medium">
+            <div class="w-3 h-3 bg-rose-400 rounded-full mx-auto mb-1"></div>
+            <span>5. ম্যাটেরিয়াল ডেলিভারি</span>
+            <span class="block text-[9px] text-rose-600 font-semibold mt-0.5">লাল (পেন্ডিং)</span>
+          </div>
+
+          <div class="p-2.5 rounded-xl border-2 border-rose-400 bg-rose-50 text-rose-800 font-medium">
+            <div class="w-3 h-3 bg-rose-400 rounded-full mx-auto mb-1"></div>
+            <span>6. ছাদে ইনস্টলেশন</span>
+            <span class="block text-[9px] text-rose-600 font-semibold mt-0.5">লাল (পেন্ডিং)</span>
+          </div>
+
+          <div class="p-2.5 rounded-xl border-2 border-rose-400 bg-rose-50 text-rose-800 font-medium">
+            <div class="w-3 h-3 bg-rose-400 rounded-full mx-auto mb-1"></div>
+            <span>7. নেট মিটারিং</span>
+            <span class="block text-[9px] text-rose-600 font-semibold mt-0.5">লাল (পেন্ডিং)</span>
+          </div>
+
+          <div class="p-2.5 rounded-xl border-2 border-rose-400 bg-rose-50 text-rose-800 font-medium">
+            <div class="w-3 h-3 bg-rose-400 rounded-full mx-auto mb-1"></div>
+            <span>8. সাবসিডি ক্লেইম</span>
+            <span class="block text-[9px] text-rose-600 font-semibold mt-0.5">লাল (পেন্ডিং)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Notification Alert Box -->
+      <div id="customerNotificationAlert" class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-2xl shadow-sm mb-6 flex justify-between items-center text-xs">
+        <div class="flex items-center gap-3">
+          <i data-lucide="bell" class="w-5 h-5 text-amber-600 flex-shrink-0"></i>
+          <div>
+            <span class="font-bold text-amber-900 block" id="notifTitle">অ্যাডমিন থেকে নোটিফিকেশন: তথ্য সংশোধন প্রয়োজন</span>
+            <p class="text-amber-800" id="notifMessage">আপনার বিদ্যুৎ বিলের Consumer ID নম্বরটি অস্পষ্ট। অনুগ্রহ করে নিচের ফর্মে গিয়ে নম্বরটি পুনরায় লিখুন এবং সেভ করুন।</p>
+          </div>
+        </div>
+        <button onclick="scrollToCustomerForm()" class="bg-amber-600 text-white font-bold px-3 py-1.5 rounded-lg">ঠিক করুন</button>
+      </div>
+
+      <!-- 8-SLOT CUSTOMER DOCUMENT UPLOAD HUB -->
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm mb-6">
+        <div class="flex justify-between items-center border-b pb-3 mb-4">
+          <div>
+            <h3 class="font-black text-slate-800 text-base flex items-center gap-2">
+              <i data-lucide="upload-cloud" class="text-solarGreen"></i> প্রয়োজনীয় ডকুমেন্টস আপলোড হাব (৮টি নির্দিষ্ট স্লট)
+            </h3>
+            <p class="text-xs text-slate-500">আধার, বিদ্যুৎ বিল, প্যান কার্ড ইত্যাদির ছবি বা ফাইল দিন (অটোমেটিক A4 PDF বানিয়ে অ্যাডমিন প্যানেলে জমা হবে)</p>
+          </div>
+          <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full">৮টি স্লট</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs" id="docSlotsGrid">
+          <div class="p-3 border rounded-2xl bg-slate-50 space-y-2">
+            <span class="font-bold text-slate-800 block">১. আধার কার্ড (উভয় পিঠ) *</span>
+            <input type="file" accept="image/*,.pdf" onchange="handleDocUpload(this, 'aadhaar_card', 'আধার কার্ড')" class="w-full text-[10px]">
+            <span id="docTag-aadhaar_card" class="text-[10px] text-emerald-600 font-semibold block status-tag">স্ট্যাটাস: পেন্ডিং</span>
+          </div>
+
+          <div class="p-3 border rounded-2xl bg-slate-50 space-y-2">
+            <span class="font-bold text-slate-800 block">২. সাম্প্রতিক বিদ্যুৎ বিল *</span>
+            <input type="file" accept="image/*,.pdf" onchange="handleDocUpload(this, 'electricity_bill', 'বিদ্যুৎ বিল')" class="w-full text-[10px]">
+            <span id="docTag-electricity_bill" class="text-[10px] text-emerald-600 font-semibold block status-tag">স্ট্যাটাস: পেন্ডিং</span>
+          </div>
+
+          <div class="p-3 border rounded-2xl bg-slate-50 space-y-2">
+            <span class="font-bold text-slate-800 block">৩. ব্যাংক পাসবই / চেক *</span>
+            <input type="file" accept="image/*,.pdf" onchange="handleDocUpload(this, 'bank_passbook', 'ব্যাংক পাসবই')" class="w-full text-[10px]">
+            <span id="docTag-bank_passbook" class="text-[10px] text-emerald-600 font-semibold block status-tag">স্ট্যাটাস: পেন্ডিং</span>
+          </div>
+
+          <div class="p-3 border rounded-2xl bg-slate-50 space-y-2">
+            <span class="font-bold text-slate-800 block">৪. প্যান কার্ড (PAN Card) *</span>
+            <input type="file" accept="image/*,.pdf" onchange="handleDocUpload(this, 'pan_card', 'প্যান কার্ড')" class="w-full text-[10px]">
+            <span id="docTag-pan_card" class="text-[10px] text-emerald-600 font-semibold block status-tag">স্ট্যাটাস: পেন্ডিং</span>
+          </div>
+
+          <div class="p-3 border rounded-2xl bg-slate-50 space-y-2">
+            <span class="font-bold text-slate-800 block">৫. জমির পর্চা / খতিয়ান</span>
+            <input type="file" accept="image/*,.pdf" onchange="handleDocUpload(this, 'other_doc_1', 'জমির পর্চা')" class="w-full text-[10px]">
+            <span id="docTag-other_doc_1" class="text-[10px] text-slate-400 block status-tag">ঐচ্ছিক</span>
+          </div>
+
+          <div class="p-3 border rounded-2xl bg-slate-50 space-y-2">
+            <span class="font-bold text-slate-800 block">৬. হোল্ডিং ট্যাক্স রসিদ</span>
+            <input type="file" accept="image/*,.pdf" onchange="handleDocUpload(this, 'other_doc_2', 'ট্যাক্স রসিদ')" class="w-full text-[10px]">
+            <span id="docTag-other_doc_2" class="text-[10px] text-slate-400 block status-tag">ঐচ্ছিক</span>
+          </div>
+
+          <div class="p-3 border rounded-2xl bg-slate-50 space-y-2">
+            <span class="font-bold text-slate-800 block">৭. অন্যান্য সাপোর্ট পেপার</span>
+            <input type="file" accept="image/*,.pdf" onchange="handleDocUpload(this, 'other_doc_3', 'অন্যান্য পেপার')" class="w-full text-[10px]">
+            <span id="docTag-other_doc_3" class="text-[10px] text-slate-400 block status-tag">ঐচ্ছিক</span>
+          </div>
+
+          <div class="p-3 border rounded-2xl bg-emerald-50 border-emerald-300 space-y-2">
+            <span class="font-bold text-emerald-950 block">৮. ছাদের জিও-ট্যাগ ছবি *</span>
+            <button onclick="triggerGeoCameraCapture()" class="w-full bg-solarGreen text-white py-1.5 rounded-lg font-bold text-[11px] flex items-center justify-center gap-1">
+              <i data-lucide="camera" class="w-3.5 h-3.5"></i> ক্যামেরা দিয়ে ছবি তুলুন
+            </button>
+            <span id="geoStatusText" class="text-[9px] text-emerald-700 font-mono block">GPS: 23.5332° N, 91.4821° E</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUESTIONNAIRE & BILL VAULT -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <div class="border-b pb-3">
+            <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+              <i data-lucide="clipboard-list" class="text-solarGreen"></i> সোলার সিস্টেম আবেদন ও টেকনিক্যাল প্রশ্নাবলী
+            </h3>
+            <p class="text-xs text-slate-500">আপনার প্রয়োজনীয় তথ্য পূরণ করে সাবমিট করুন; অ্যাডমিন সরাসরি দেখে অনুমোদন দেবেন</p>
+          </div>
+
+          <form onsubmit="handleCustomerFormSubmit(event)" class="space-y-3.5 text-xs">
+            <div>
+              <label class="font-bold text-slate-700 block mb-1">ইনস্টলেশন সম্পূর্ণ ঠিকানা ও ল্যান্ডমার্ক *</label>
+              <textarea id="custFormAddress" class="w-full border rounded-xl p-2.5" rows="2" required>Madhuban, Udaipur, Gomati Tripura - 799120</textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="font-bold text-slate-700 block mb-1">ইলেকট্রিসিটি Consumer ID (TSECL বিল) *</label>
+                <input type="text" id="custFormCaNo" value="031254896" class="w-full border rounded-xl p-2.5 font-mono" required>
+              </div>
+              <div>
+                <label class="font-bold text-slate-700 block mb-1">অনুমোদিত মিটার লোড (kW) *</label>
+                <input type="number" step="0.5" id="custFormMeterLoad" value="2.0" class="w-full border rounded-xl p-2.5 font-bold" required>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="font-bold text-slate-700 block mb-1">কত কিলোওয়াটের সোলার বসাতে চান? (kW) *</label>
+                <input type="number" step="1.0" min="1" max="10" id="custFormSolarKw" value="2.0" class="w-full border rounded-xl p-2.5 font-bold text-solarDark" required>
+              </div>
+              <div>
+                <label class="font-bold text-slate-700 block mb-1">ছাদের ধরন *</label>
+                <select id="custFormRoofType" class="w-full border rounded-xl p-2.5">
+                  <option>RCC পাকা ছাদ</option>
+                  <option>টিনের চাল</option>
+                  <option>ফাঁকা জমি / গ্রাউন্ড মাউন্ট</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="font-bold text-slate-700 block mb-1">ছাদের আনুমানিক ক্ষেত্রফল (বর্গফুট) *</label>
+                <input type="number" id="custFormRoofArea" value="250" class="w-full border rounded-xl p-2.5" required>
+              </div>
+              <div>
+                <label class="font-bold text-slate-700 block mb-1">ব্যাটারি ব্যাকআপ প্রয়োজন আছে কি? *</label>
+                <select id="custFormBatteryNeed" class="w-full border rounded-xl p-2.5">
+                  <option value="no">না (শুধু অন-গ্রিড)</option>
+                  <option value="yes" selected>হ্যাঁ (হাইব্রিড বা অফ-গ্রিড)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="font-bold text-slate-700 block mb-1">অন্য কোনো বিশেষ প্রশ্ন বা রিকোয়ারমেন্ট থাকলে লিখুন:</label>
+              <input type="text" id="custFormNotes" placeholder="যেমন: দিনের বেলায় ফ্রিজ ও ফ্যান এক সাথে চালাতে চাই..." class="w-full border rounded-xl p-2.5">
+            </div>
+
+            <button type="submit" class="w-full bg-solarGreen text-white font-bold py-3 rounded-xl hover:bg-solarDark transition">
+              তথ্য সেভ ও অ্যাডমিনের কাছে জমা দিন
+            </button>
+          </form>
+        </div>
+
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+            <h4 class="font-bold text-slate-800 text-sm border-b pb-2 mb-3 flex items-center gap-1.5">
+              <i data-lucide="file-text" class="text-solarGreen"></i> অ্যাডমিন প্রেরিত বিল ও কোটেশন (Bills Vault)
+            </h4>
+            <div id="custIssuedBillsList" class="space-y-2 text-xs">
+              <div class="p-3 border rounded-xl bg-slate-50 flex justify-between items-center">
+                <div>
+                  <span class="font-bold text-slate-800 block font-mono">AKT/2026-27/0043</span>
+                  <span class="text-[10px] text-slate-500">Official GST Invoice (₹ 1,25,000)</span>
+                </div>
+                <button onclick="downloadSamplePdf('AKT/2026-27/0043')" class="bg-solarGreen text-white px-3 py-1 rounded-lg font-bold hover:bg-solarDark">
+                  ডাউনলোড PDF
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+            <label class="block text-xs font-bold text-slate-700 mb-1">এককালীন ডিজিটাল সাইন (Sign Pad):</label>
+            <p class="text-[10px] text-slate-400 mb-2">স্ক্রিনে আঙুল দিয়ে সাইন দিন (চুক্তিপত্রে যুক্ত হবে)</p>
+            <canvas id="sigCanvas" width="300" height="110" class="border border-slate-300 rounded-xl bg-white w-full cursor-crosshair touch-none"></canvas>
+            <div class="flex justify-between items-center mt-2 text-xs">
+              <button onclick="clearSignatureCanvas()" class="text-red-600 font-semibold underline">ক্লিয়ার</button>
+              <button onclick="alert('ডিজিটাল সাইন সেভ হয়েছে!')" class="bg-solarGreen text-white px-3 py-1 rounded-lg font-bold">সাইন সেভ</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- SALES PORTAL -->
+    <!-- 7. SALES PORTAL (WITH REFERRED CUSTOMERS LIST) -->
     <section id="view-sales-portal" class="tab-view hidden max-w-6xl mx-auto px-4 py-8">
-      <div class="bg-slate-900 text-white p-6 rounded-3xl mb-6 flex justify-between items-center">
+      <div class="bg-slate-900 text-white p-6 rounded-3xl shadow-lg mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 class="text-xl font-black" id="salesPortalAgentName">Amit Sharma</h2>
-          <p class="text-xs text-amber-300">Code: <span id="salesPortalAgentCode" class="font-mono">NRTA-101</span></p>
+          <span class="text-xs text-amber-300 font-bold uppercase tracking-wider">Sales Partner Workspace</span>
+          <h2 class="text-2xl font-black mt-0.5" id="salesPortalAgentName">Amit Sharma</h2>
+          <p class="text-xs text-slate-400">My Referral Code: <span class="text-amber-300 font-mono font-bold" id="salesPortalAgentCode">NRTA-101</span></p>
         </div>
-        <button onclick="logoutUser()" class="bg-red-600 text-xs px-3 py-1.5 rounded font-bold">লগআউট</button>
+        <div class="flex gap-2">
+          <button onclick="copySalesLink()" class="bg-solarYellow text-slate-950 font-bold text-xs px-3.5 py-2 rounded-xl">লিংক কপি করুন</button>
+          <button onclick="logoutUser()" class="border border-white/30 text-xs px-3 py-2 rounded-xl hover:bg-white/10 font-bold">লগআউট</button>
+        </div>
       </div>
+
+      <!-- Referred Customers by this Sales Partner -->
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm mb-6 space-y-4">
+        <div class="flex justify-between items-center border-b pb-3">
+          <div>
+            <h3 class="font-black text-slate-800 text-base flex items-center gap-2">
+              <i data-lucide="users" class="text-solarGreen"></i> আমার রেফার করা কাস্টমার তালিকা (My Referred Clients)
+            </h3>
+            <p class="text-xs text-slate-500">আপনার রেফারেল কোড ব্যবহার করে সাইন-আপ করা কাস্টমারদের লাইভ অগ্রগতি</p>
+          </div>
+          <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full" id="salesReferredCountBadge">0 জন গ্রাহক</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b text-slate-600 font-bold uppercase">
+                <th class="p-3">কাস্টমার নাম</th>
+                <th class="p-3">মোবাইল নম্বর</th>
+                <th class="p-3">প্রস্তাবিত সোলার</th>
+                <th class="p-3">বর্তমান অগ্রগতি</th>
+                <th class="p-3 text-right">স্ট্যাটাস</th>
+              </tr>
+            </thead>
+            <tbody id="salesReferredCustomersTbody" class="divide-y divide-slate-100">
+              <!-- Dynamically rendered based on active sales partner code -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="bg-white p-6 rounded-3xl border shadow-sm">
-        <h3 class="font-bold mb-3">আমার রেফার করা কাস্টমার তালিকা</h3>
-        <table class="w-full text-xs text-left">
-          <thead class="bg-slate-50 border-b font-bold">
-            <tr><th class="p-2">নাম</th><th class="p-2">মোবাইল</th><th class="p-2">সোলার সাইজ</th><th class="p-2 text-right">স্ট্যাটাস</th></tr>
+        <h3 class="font-bold text-slate-800 text-base mb-2">কাস্টমার অন-বোর্ড সহায়তা</h3>
+        <p class="text-xs text-slate-500 mb-4">যেসব সাধারণ গ্রাহক নিজে ফর্ম পূরণ করতে পারেন না, তাদের বাড়ি গিয়ে সরাসরি সহায়তা করুন।</p>
+        <button onclick="navigateTab('register')" class="bg-solarGreen text-white font-bold text-xs px-5 py-2.5 rounded-xl">নতুন কাস্টমার সাইন-আপ</button>
+      </div>
+    </section>
+
+    <!-- 8. ADMIN MASTER CONTROL HUB -->
+    <section id="view-admin-portal" class="tab-view hidden max-w-7xl mx-auto px-4 py-8">
+      
+      <!-- Admin Header -->
+      <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6 rounded-3xl shadow-lg mb-6 flex justify-between items-center">
+        <div>
+          <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Super Administrator Authority</span>
+          <h2 class="text-2xl font-black mt-0.5">NRTA SOLAR (Powered by AK TRADERS) Control Hub</h2>
+          <p class="text-xs text-slate-400">কাস্টমার, সেলস, বিলিং, কমপ্লিটেড প্রজেক্ট, প্রাইসিং ও ওয়েবসাইট/গ্যালারি কন্ট্রোল</p>
+        </div>
+        <button onclick="logoutUser()" class="border border-white/30 text-xs px-3 py-2 rounded-xl hover:bg-white/10 font-bold">লগআউট</button>
+      </div>
+
+      <!-- 6 MAIN ADMIN SECTIONS -->
+      <div class="flex gap-2 border-b border-slate-200 pb-3 mb-6 overflow-x-auto text-xs font-bold">
+        <button onclick="switchAdminHubTab('hub-customers')" id="hubBtn-customers" class="admin-hub-btn bg-solarGreen text-white px-4 py-2 rounded-xl shadow">
+          👥 ১. কাস্টমার ও PIN কন্ট্রোল
+        </button>
+        <button onclick="switchAdminHubTab('hub-sales')" id="hubBtn-sales" class="admin-hub-btn bg-white border text-slate-700 px-4 py-2 rounded-xl hover:bg-slate-50">
+          🤝 ২. সেলস অন-বোর্ডিং ও কমিশন
+        </button>
+        <button onclick="switchAdminHubTab('hub-billing')" id="hubBtn-billing" class="admin-hub-btn bg-white border text-slate-700 px-4 py-2 rounded-xl hover:bg-slate-50">
+          🧾 ৩. বিল ও কোটেশন ([+] Items)
+        </button>
+        <button onclick="switchAdminHubTab('hub-completed')" id="hubBtn-completed" class="admin-hub-btn bg-white border text-slate-700 px-4 py-2 rounded-xl hover:bg-slate-50">
+          ✅ ৪. কমপ্লিটেড প্রজেক্ট
+        </button>
+        <button onclick="switchAdminHubTab('hub-pricing')" id="hubBtn-pricing" class="admin-hub-btn bg-white border text-slate-700 px-4 py-2 rounded-xl hover:bg-slate-50">
+          ⚙️ ৫. [+] ফ্রি-হ্যান্ড প্রাইসিং
+        </button>
+        <button onclick="switchAdminHubTab('hub-website-content')" id="hubBtn-website-content" class="admin-hub-btn bg-white border text-slate-700 px-4 py-2 rounded-xl hover:bg-slate-50">
+          🖼️ ৬. গ্যালারি ও কন্টাক্ট এডিটর
+        </button>
+      </div>
+
+      <!-- 1. CUSTOMER PANEL -->
+      <div id="hub-customers" class="admin-hub-view block bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex justify-between items-center border-b pb-3">
+          <div>
+            <h3 class="font-black text-slate-800 text-base">সক্রিয় কাস্টমার তালিকা (Active Leads)</h3>
+            <p class="text-xs text-slate-500">এখানে কাস্টমারের পিন দেখা, রিসেট করা, DCR ও আপলোড করা আধার/বিল ডাউনলোড করার পূর্ণ নিয়ন্ত্রণ রয়েছে</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b text-slate-600 font-bold uppercase">
+                <th class="p-3">কাস্টমার নাম</th>
+                <th class="p-3">মোবাইল</th>
+                <th class="p-3">রেফারেল কোড</th>
+                <th class="p-3">লগইন PIN</th>
+                <th class="p-3">Consumer ID</th>
+                <th class="p-3">লোড / প্রস্তাবিত kW</th>
+                <th class="p-3 text-right">অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="activeCustomersTableBody" class="divide-y divide-slate-100">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 2. SALES PANEL (ACTIVE AGENTS, PENDING APPROVALS & COMPLETE CONTROLS) -->
+      <div id="hub-sales" class="admin-hub-view hidden bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+        <div class="border-b pb-3 flex justify-between items-center">
+          <div>
+            <h3 class="font-black text-slate-800 text-base">সোলার সেলস পার্টনার কন্ট্রোল ও কমিশন ম্যানেজমেন্ট</h3>
+            <p class="text-xs text-slate-500">অনলাইনে আবেদন করা সেলসপারসনদের অনুমোদন/বাতিল করুন অথবা সরাসরি নতুন এজেন্ট যুক্ত করুন</p>
+          </div>
+          <button onclick="openDirectAddSalesModal()" class="bg-solarGreen text-white px-3.5 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1">
+            <i data-lucide="user-plus" class="w-3.5 h-3.5"></i> সরাসরি নতুন সেলস এজেন্ট যুক্ত করুন
+          </button>
+        </div>
+
+        <!-- Section A: Pending Approvals -->
+        <div class="bg-amber-50/60 p-4 rounded-2xl border border-amber-200">
+          <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <i data-lucide="clock" class="w-4 h-4 text-amber-700"></i> অনলাইনে আবেদন করা সেলস পার্টনার (Pending Approvals)
+          </h4>
+          <table class="w-full text-xs text-left">
+            <thead class="text-slate-600 font-bold border-b">
+              <tr>
+                <th class="p-2">নাম</th>
+                <th class="p-2">মোবাইল</th>
+                <th class="p-2">কাজের এলাকা</th>
+                <th class="p-2">রেফারেল কোড নির্ধারণ</th>
+                <th class="p-2 text-right">অ্যাকশন (অ্যাপ্রুভ / রিজেক্ট)</th>
+              </tr>
+            </thead>
+            <tbody id="pendingSalesApprovalsTbody" class="divide-y divide-amber-100">
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Section B: Active Sales Agents with Full Metrics & Client List View -->
+        <div>
+          <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-2">সক্রিয় সেলস রিপ্রেজেন্টেটিভ ও পারফরম্যান্স মেট্রিক্স</h4>
+          <table class="w-full text-xs text-left border rounded-xl overflow-hidden">
+            <thead class="bg-slate-50 border-b font-bold text-slate-600">
+              <tr>
+                <th class="p-3">এজেন্ট নাম</th>
+                <th class="p-3">রেফারেল কোড</th>
+                <th class="p-3">মোবাইল</th>
+                <th class="p-3 text-center">মোট লিড</th>
+                <th class="p-3 text-center">কমপ্লিটেড</th>
+                <th class="p-3 text-center">পেন্ডিং</th>
+                <th class="p-3">নির্ধারিত কমিশন (₹)</th>
+                <th class="p-3 text-right">অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="activeSalesAgentsTbody" class="divide-y divide-slate-100">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3. BILLING PANEL -->
+      <div id="hub-billing" class="admin-hub-view hidden bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 gap-2">
+          <div>
+            <h3 class="font-black text-slate-800 text-base">GST Bill ও ম্যানুয়াল কোটেশন জেনারেটর</h3>
+            <p class="text-xs text-slate-500">বিলের হেডারে **NRTA SOLAR (Powered by AK TRADERS)** থাকবে</p>
+          </div>
+          <select id="adminDocType" class="border rounded-xl p-2 text-xs font-bold text-solarGreen">
+            <option value="TAX_INVOICE">Official GST Tax Invoice</option>
+            <option value="MANUAL_QUOTATION">Manual Quotation (কোটেশন)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs bg-slate-50 p-4 rounded-2xl border border-slate-200">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">কাস্টমার চুজ করুন (Registered):</label>
+            <select id="adminBillCustSelect" onchange="autoFillCustomerBilling(this.value)" class="w-full border rounded-xl p-2 bg-white font-medium">
+              <option value="">-- কাস্টমার সিলেক্ট করুন --</option>
+            </select>
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">কাস্টমার নাম *</label>
+            <input type="text" id="adminBillName" value="Tamal Dey" class="w-full border rounded-xl p-2 font-bold bg-white">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">কাস্টমার মোবাইল *</label>
+            <input type="tel" id="adminBillMobile" value="9876543210" class="w-full border rounded-xl p-2 font-mono bg-white">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">ইনভয়েস / কোটেশন নম্বর *</label>
+            <input type="text" id="adminBillNo" value="AKT/2026-27/0044" class="w-full border rounded-xl p-2 font-mono font-bold text-slate-900 bg-white">
+          </div>
+        </div>
+
+        <!-- Dynamic Items Table with Unlimited [+] Rows -->
+        <div class="border rounded-2xl overflow-hidden">
+          <div class="bg-slate-900 text-white px-4 py-2.5 flex justify-between items-center text-xs font-bold">
+            <span>পণ্যের বিবরণ ও ম্যানুয়াল রেট (Items & Rates)</span>
+            <button onclick="addInvoiceItemRow()" class="bg-solarGreen text-white px-3 py-1 rounded-lg hover:bg-emerald-700 flex items-center gap-1">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Item [+]
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-50 border-b text-slate-700 font-bold">
+                <tr>
+                  <th class="p-2.5 w-5/12">Item Description</th>
+                  <th class="p-2.5 w-2/12">HSN Code</th>
+                  <th class="p-2.5 w-1/12 text-center">Qty</th>
+                  <th class="p-2.5 w-2/12">Unit Rate (₹)</th>
+                  <th class="p-2.5 w-1/12">GST %</th>
+                  <th class="p-2.5 w-2/12 text-right">Total (₹)</th>
+                  <th class="p-2.5 w-12 text-center">মুছুন</th>
+                </tr>
+              </thead>
+              <tbody id="invoiceItemsTbody" class="divide-y divide-slate-100">
+                <tr>
+                  <td class="p-2">
+                    <input type="text" value="2.0 kW Mono PERC Solar Complete Package" class="item-desc w-full border rounded-lg p-2 font-medium">
+                  </td>
+                  <td class="p-2">
+                    <input type="text" value="8541" class="item-hsn w-full border rounded-lg p-2 font-mono">
+                  </td>
+                  <td class="p-2">
+                    <input type="number" value="1" oninput="calculateInvoiceTotals()" class="item-qty w-full border rounded-lg p-2 font-bold text-center">
+                  </td>
+                  <td class="p-2">
+                    <input type="number" value="125000" oninput="calculateInvoiceTotals()" class="item-rate w-full border rounded-lg p-2 font-bold">
+                  </td>
+                  <td class="p-2">
+                    <select onchange="calculateInvoiceTotals()" class="item-gst w-full border rounded-lg p-2 font-semibold">
+                      <option value="12" selected>12%</option>
+                      <option value="18">18%</option>
+                      <option value="5">5%</option>
+                      <option value="0">0%</option>
+                    </select>
+                  </td>
+                  <td class="p-2 text-right font-black text-slate-800 item-row-total">
+                    ₹ 1,40,000.00
+                  </td>
+                  <td class="p-2 text-center">
+                    <button onclick="removeInvoiceRow(this)" class="text-red-500 hover:text-red-700"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+          <div class="space-y-2 text-xs">
+            <label class="font-bold text-slate-700 block">শর্তাবলী ও নোট (Terms & Conditions):</label>
+            <textarea id="billTerms" class="w-full border rounded-xl p-2.5" rows="3">1. 25 Years performance warranty on solar panels.
+2. 5 Years comprehensive on-site warranty on inverter.
+3. Cheque / NEFT should be made in favor of 'AK TRADERS'.</textarea>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2 text-xs">
+            <div class="flex justify-between font-medium">
+              <span class="text-slate-500">Taxable Subtotal:</span>
+              <span id="invTaxableSubtotal" class="font-bold text-slate-800">₹ 1,25,000.00</span>
+            </div>
+            <div class="flex justify-between font-medium">
+              <span class="text-slate-500">Total GST (Auto Calculated):</span>
+              <span id="invTotalGst" class="font-bold text-slate-800">₹ 15,000.00</span>
+            </div>
+            <div class="flex justify-between text-base font-black border-t pt-2 text-solarGreen">
+              <span>Grand Total:</span>
+              <span id="invGrandTotal">₹ 1,40,000.00</span>
+            </div>
+            
+            <div class="pt-3 flex gap-2">
+              <button onclick="previewInvoice()" class="flex-1 bg-solarGreen text-white font-bold py-2.5 rounded-xl hover:bg-solarDark flex items-center justify-center gap-1.5">
+                <i data-lucide="eye" class="w-4 h-4"></i> প্রিভিউ ও কাস্টমারকে পাঠান
+              </button>
+              <button onclick="triggerDirectBillPrint()" class="bg-slate-900 text-white px-4 py-2.5 rounded-xl font-bold hover:bg-slate-800 flex items-center gap-1">
+                <i data-lucide="printer" class="w-4 h-4"></i> সরাসরি প্রিন্ট
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. COMPLETED PROJECTS (PERMANENT ARCHIVE) -->
+      <div id="hub-completed" class="admin-hub-view hidden bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <h3 class="font-black text-slate-800 text-base border-b pb-3">সফলভাবে সম্পন্ন হওয়া প্রজেক্ট আর্কাইভ (Completed Projects)</h3>
+        <table class="w-full text-xs text-left border rounded-xl overflow-hidden">
+          <thead class="bg-slate-50 border-b font-bold text-slate-600">
+            <tr>
+              <th class="p-3">কাস্টমার নাম</th>
+              <th class="p-3">মোবাইল</th>
+              <th class="p-3">প্ল্যান্ট সাইজ</th>
+              <th class="p-3">ইনস্টলেশন তারিখ</th>
+              <th class="p-3">স্ট্যাটাস</th>
+            </tr>
           </thead>
-          <tbody id="salesReferredCustomersTbody"></tbody>
+          <tbody id="completedProjectsTableBody" class="divide-y divide-slate-100">
+          </tbody>
         </table>
       </div>
+
+      <!-- 5. DYNAMIC FREE-FORM PRICING ([+] ADD CUSTOM ITEMS MATRIX) -->
+      <div id="hub-pricing" class="admin-hub-view hidden bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+        <div class="border-b pb-3 flex justify-between items-center">
+          <div>
+            <h3 class="font-black text-slate-800 text-base">ম্যানুয়াল ফ্রি-হ্যান্ড প্রাইস ম্যানেজার (Custom [+] Add Item Matrix)</h3>
+            <p class="text-xs text-slate-500">কোনো প্রি-ফিক্সড জটিলতা ছাড়া আপনি নিজে আইটেমের নাম ও দাম লিখে সেভ করবেন, সেটাই হোমপেজে শো হবে</p>
+          </div>
+          <button onclick="addCustomPricingRow()" class="bg-solarGreen text-white px-3.5 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add New Item [+]
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border rounded-xl overflow-hidden">
+            <thead class="bg-slate-50 border-b font-bold text-slate-700">
+              <tr>
+                <th class="p-3 w-6/12">আইটেমের নাম ও বিবরণ (Item Name / Capacity / Package)</th>
+                <th class="p-3 w-4/12">বিক্রয়মূল্য (Price ₹)</th>
+                <th class="p-3 w-2/12 text-center">অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="customPricingTableBody" class="divide-y divide-slate-100">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pt-2">
+          <button onclick="saveAllCustomPricing()" class="bg-solarGreen text-white font-bold px-6 py-2.5 rounded-xl hover:bg-solarDark shadow">
+            সমস্ত প্রাইসিং সেভ ও হোমপেজে সিঙ্ক করুন
+          </button>
+        </div>
+      </div>
+
+      <!-- 6. WEBSITE CONTENT & GALLERY MANAGER -->
+      <div id="hub-website-content" class="admin-hub-view hidden bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+        <div class="border-b pb-5">
+          <h3 class="font-black text-slate-800 text-base mb-1">📞 Contact Us পেজ ও ওয়েবসাইট কন্টাক্ট ইনফো এডিটর</h3>
+          <p class="text-xs text-slate-500 mb-3">এখানে ফোন নম্বর ও ইমেইল পরিবর্তন করলে পুরো ওয়েবসাইটে স্বয়ংক্রিয়ভাবে আপডেট হয়ে যাবে</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div>
+              <label class="font-bold text-slate-700 block mb-1">Primary Mobile / Call:</label>
+              <input type="text" id="adminEditPhone1" value="+91 98634 02515" class="w-full border rounded-xl p-2 font-mono font-bold">
+            </div>
+            <div>
+              <label class="font-bold text-slate-700 block mb-1">Secondary Mobile / Call:</label>
+              <input type="text" id="adminEditPhone2" value="+91 98765 43210" class="w-full border rounded-xl p-2 font-mono font-bold">
+            </div>
+            <div>
+              <label class="font-bold text-slate-700 block mb-1">Official Support Email:</label>
+              <input type="email" id="adminEditEmail" value="contact@nrtasolar.com" class="w-full border rounded-xl p-2 font-medium">
+            </div>
+            <div>
+              <label class="font-bold text-slate-700 block mb-1">Office Address:</label>
+              <input type="text" id="adminEditAddress" value="NRTA Solar (AK TRADERS), Udaipur, Gomati Tripura - 799120" class="w-full border rounded-xl p-2">
+            </div>
+          </div>
+
+          <button onclick="saveAdminContactInfo()" class="mt-3 bg-solarGreen text-white font-bold text-xs px-4 py-2 rounded-xl hover:bg-solarDark">
+            কন্টাক্ট ইনফো সেভ ও আপডেট করুন
+          </button>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <div>
+              <h3 class="font-black text-slate-800 text-base">🖼️ প্রজেক্ট গ্যালারি ফটো ম্যানেজার</h3>
+              <p class="text-xs text-slate-500">এখানে ছবি ও টাইটেল যোগ করলে পাবলিক গ্যালারিতে সরাসরি প্রদর্শিত হবে</p>
+            </div>
+            <button onclick="openAddGalleryModal()" class="bg-solarGreen text-white px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> নতুন ছবি যোগ করুন
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left border rounded-xl overflow-hidden">
+              <thead class="bg-slate-50 border-b font-bold text-slate-600">
+                <tr>
+                  <th class="p-3">প্রিভিউ</th>
+                  <th class="p-3">প্রজেক্ট টাইটেল</th>
+                  <th class="p-3">লোকেশন</th>
+                  <th class="p-3">ক্যাটাগরি</th>
+                  <th class="p-3 text-right">মুছুন</th>
+                </tr>
+              </thead>
+              <tbody id="adminGalleryTableBody" class="divide-y divide-slate-100">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </section>
 
-    <!-- ADMIN PORTAL -->
-    <section id="view-admin-portal" class="tab-view hidden max-w-7xl mx-auto px-4 py-8">
-      <div class="bg-slate-900 text-white p-6 rounded-3xl mb-6 flex justify-between items-center">
-        <h2 class="text-xl font-black">Super Admin Control Hub</h2>
-        <button onclick="logoutUser()" class="bg-red-600 text-xs px-3 py-1.5 rounded font-bold">লগআউট</button>
-      </div>
-      <div class="bg-white p-6 rounded-3xl border shadow-sm">
-        <h3 class="font-bold text-slate-800 mb-3">অ্যাডমিন কন্ট্রোল প্যানেল সচল রয়েছে।</h3>
-      </div>
-    </section>
   </main>
 
-  <!-- LOGIN MODAL -->
-  <div id="loginModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
-    <div class="bg-white max-w-sm w-full rounded-3xl p-6 relative">
-      <button onclick="closeLoginModal()" class="absolute top-4 right-4">✕</button>
-      <h3 class="text-lg font-black mb-4">পোর্টালে লগইন করুন</h3>
-      <form onsubmit="handleUniversalLogin(event)" class="space-y-4 text-sm">
-        <input type="tel" id="loginMobile" required placeholder="মোবাইল নম্বর" class="w-full border rounded-xl p-3 font-mono">
-        <input type="password" id="loginPin" required placeholder="৬-ডিজিট পিন" class="w-full border rounded-xl p-3 text-center font-mono">
-        <button type="submit" class="w-full bg-solarGreen text-white font-black py-3 rounded-xl">লগইন</button>
+  <!-- MODAL: VIEW SALES AGENT'S REFERRED CLIENTS LIST -->
+  <div id="salesAgentClientsModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50 overflow-y-auto">
+    <div class="bg-white max-w-2xl w-full rounded-3xl p-6 md:p-8 shadow-2xl relative my-6">
+      <button onclick="closeModal('salesAgentClientsModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="border-b pb-3 mb-4">
+        <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded uppercase">Sales Rep Attribution</span>
+        <h3 class="text-lg font-black text-slate-800 mt-1" id="agentClientsModalTitle">এজেন্টের রেফার করা গ্রাহক তালিকা</h3>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left border rounded-xl overflow-hidden">
+          <thead class="bg-slate-50 border-b font-bold text-slate-600">
+            <tr>
+              <th class="p-2.5">কাস্টমার নাম</th>
+              <th class="p-2.5">মোবাইল</th>
+              <th class="p-2.5">সোলার সাইজ</th>
+              <th class="p-2.5 text-right">প্রজেক্ট স্ট্যাটাস</th>
+            </tr>
+          </thead>
+          <tbody id="agentClientsModalTbody" class="divide-y divide-slate-100">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT SALES PARTNER DETAILS (ADMIN) -->
+  <div id="editSalesPartnerModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white max-w-md w-full rounded-3xl p-6 shadow-2xl relative">
+      <button onclick="closeModal('editSalesPartnerModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="text-base font-black text-slate-800 mb-1">সেলস পার্টনারের তথ্য এডিট করুন</h3>
+      <p class="text-xs text-slate-500 mb-4">নাম, মোবাইল নম্বর বা রেফারেল কোড পরিবর্তন করুন</p>
+
+      <form onsubmit="handleSaveEditSalesPartner(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">এজেন্টের পূর্ণ নাম *</label>
+          <input type="text" id="editSalesNameInput" required class="w-full border rounded-xl p-2.5 font-bold">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">মোবাইল নম্বর *</label>
+          <input type="tel" id="editSalesMobileInput" required pattern="[0-9]{10}" class="w-full border rounded-xl p-2.5 font-mono">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">ইউনিক Referral Code *</label>
+          <input type="text" id="editSalesCodeInput" required class="w-full border rounded-xl p-2.5 uppercase font-mono font-bold text-solarDark">
+        </div>
+
+        <button type="submit" class="w-full bg-solarGreen text-white font-bold py-2.5 rounded-xl hover:bg-solarDark mt-2">
+          তথ্য আপডেট সেভ করুন
+        </button>
       </form>
     </div>
   </div>
+
+  <!-- DIRECT ADD SALES MODAL (ADMIN) -->
+  <div id="directAddSalesModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white max-w-md w-full rounded-3xl p-6 shadow-2xl relative">
+      <button onclick="closeModal('directAddSalesModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="text-base font-black text-slate-800 mb-1">সরাসরি নতুন সেলস পার্টনার অ্যাকাউন্ট তৈরি</h3>
+      <p class="text-xs text-slate-500 mb-4">অ্যাডমিন নিজে কোড নির্ধারণ করে সরাসরি এজেন্ট অনবোর্ড করতে পারেন</p>
+
+      <form onsubmit="handleDirectAddSalesAgent(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">এজেন্টের পূর্ণ নাম *</label>
+          <input type="text" id="directSalesName" required placeholder="যেমন: Rajesh Das" class="w-full border rounded-xl p-2.5 font-bold">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">মোবাইল নম্বর *</label>
+          <input type="tel" id="directSalesMobile" required pattern="[0-9]{10}" placeholder="১০ ডিজিট মোবাইল নম্বর" class="w-full border rounded-xl p-2.5 font-mono">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">ইউনিক Referral Code *</label>
+            <input type="text" id="directSalesCode" required placeholder="NRTA-103" class="w-full border rounded-xl p-2.5 uppercase font-mono font-bold text-solarDark">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">6-Digit PIN *</label>
+            <input type="password" id="directSalesPin" required pattern="[0-9]{6}" value="123456" class="w-full border rounded-xl p-2.5 font-mono text-center tracking-widest">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-solarGreen text-white font-bold py-2.5 rounded-xl hover:bg-solarDark mt-2">
+          অ্যাকাউন্ট তৈরি ও অ্যাক্টিভ করুন
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN CUSTOMER FULL INSPECTION MODAL (WITH REAL DOCUMENT DOWNLOAD BUTTONS & PIN EDIT) -->
+  <div id="adminCustomerInspectionModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50 overflow-y-auto">
+    <div class="bg-white max-w-2xl w-full rounded-3xl p-6 md:p-8 shadow-2xl relative my-6">
+      <button onclick="closeModal('adminCustomerInspectionModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="border-b pb-3 mb-4 flex justify-between items-start">
+        <div>
+          <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded uppercase">Full Technical Dossier Review</span>
+          <h3 class="text-lg font-black text-slate-800 mt-1" id="inspectCustHeader">কাস্টমার ফাইল ও পেন্ডিং অডিট</h3>
+        </div>
+        
+        <!-- View & Edit 6-Digit PIN in Modal -->
+        <div class="bg-slate-100 p-2.5 rounded-xl border border-slate-300 flex items-center gap-2 text-xs">
+          <span class="font-bold text-slate-600">User PIN:</span>
+          <input type="text" id="inspectUserPinInput" class="font-mono font-bold w-20 text-center border rounded bg-white p-1 text-slate-900">
+          <button onclick="adminResetCustomerPinDirect()" class="bg-solarGreen text-white px-2 py-1 rounded font-bold hover:bg-solarDark">
+            পিন সেভ
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 bg-slate-50 p-3 rounded-2xl border">
+          <div>
+            <span class="text-slate-400 font-semibold block">Consumer ID:</span>
+            <input type="text" id="inspectCaNo" class="border rounded p-1 font-mono font-bold w-full bg-white">
+          </div>
+          <div>
+            <span class="text-slate-400 font-semibold block">অনুমোদিত লোড:</span>
+            <input type="number" id="inspectMeterLoad" class="border rounded p-1 font-bold w-full bg-white">
+          </div>
+          <div>
+            <span class="text-slate-400 font-semibold block">প্রস্তাবিত সোলার:</span>
+            <input type="number" id="inspectSolarKw" class="border rounded p-1 font-bold text-solarDark w-full bg-white">
+          </div>
+          <div>
+            <span class="text-slate-400 font-semibold block">ছাদের সাইজ:</span>
+            <span class="font-bold text-slate-700 block mt-1" id="inspectRoofAreaDisplay">~250 sqft (RCC)</span>
+          </div>
+        </div>
+
+        <!-- Technical & DCR Checklist -->
+        <div class="border rounded-2xl p-4 space-y-2.5 bg-white">
+          <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="check-square" class="w-4 h-4 text-solarGreen"></i> টেকনিক্যাল ও ডিসিআর (DCR) ভেরিফিকেশন চেকলিস্ট
+          </h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <label class="flex items-center gap-2 p-2 border rounded-xl hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" id="chkDcr" class="w-4 h-4 text-solarGreen rounded">
+              <span><b>DCR Certification:</b> প্যানেল DCR কমপ্লায়েন্ট ভেরিফায়েড</span>
+            </label>
+
+            <label class="flex items-center gap-2 p-2 border rounded-xl hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" id="chkSurvey" checked class="w-4 h-4 text-solarGreen rounded">
+              <span><b>Site Survey:</b> ছাদের জিও-ছবি ও শ্যাডো অ্যানালাইসিস</span>
+            </label>
+
+            <label class="flex items-center gap-2 p-2 border rounded-xl hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" id="chkDiscom" class="w-4 h-4 text-solarGreen rounded">
+              <span><b>TSECL Approval:</b> নেট মিটারিং স্যাঙ্কশন লেটার</span>
+            </label>
+
+            <label class="flex items-center gap-2 p-2 border rounded-xl hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" id="chkSubsidy" class="w-4 h-4 text-solarGreen rounded">
+              <span><b>National Portal:</b> PM Surya Ghar পোর্টাল রেজিস্টার্ড</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- REAL CUSTOMER UPLOADED DOCUMENTS WITH DIRECT DOWNLOAD BUTTONS -->
+        <div class="border rounded-2xl p-4 bg-white space-y-3">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="download-cloud" class="w-4 h-4 text-solarGreen"></i> কাস্টমার আপলোড করা ডকুমেন্টস (সরাসরি ডাউনলোড অপশন)
+            </h4>
+            <span class="text-[10px] text-slate-400">কাস্টমার আপলোড করার সাথে সাথে এখানে সরাসরি চলে আসবে</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="inspectDocDownloadsGrid">
+            <!-- Populated via JS with Real Download Buttons -->
+          </div>
+        </div>
+
+        <!-- Push Correction Notification -->
+        <div class="bg-amber-50 p-3.5 rounded-2xl border border-amber-200">
+          <label class="font-bold text-amber-900 block mb-1">কাস্টমারকে সংশোধন নোটিফিকেশন পাঠান (কোন জিনিসটা ঠিক করতে হবে):</label>
+          <textarea id="inspectNotifMsg" rows="2" class="w-full border rounded-xl p-2 bg-white text-xs" placeholder="যেমন: আপনার বিদ্যুৎ বিলের কনজিউমার আইডি নম্বরটি ভুল আছে, অনুগ্রহ করে নতুন বিল আপলোড করুন..."></textarea>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button onclick="saveCustomerFullAudit()" class="flex-1 bg-solarGreen text-white font-bold py-2.5 rounded-xl hover:bg-solarDark flex items-center justify-center gap-1.5">
+            <i data-lucide="save" class="w-4 h-4"></i> চেকলিস্ট সেভ ও নোটিফিকেশন পুশ করুন
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD GALLERY MODAL -->
+  <div id="addGalleryModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white max-w-md w-full rounded-3xl p-6 shadow-2xl relative">
+      <button onclick="closeModal('addGalleryModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="text-base font-black text-slate-800 mb-1">গ্যালারিতে নতুন ছবি যোগ করুন</h3>
+      <p class="text-xs text-slate-500 mb-4">ছবির সরাসরি URL অথবা ডেমো প্রিভিউ লিঙ্ক দিন</p>
+
+      <form onsubmit="handleAddNewGalleryItem(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">প্রজেক্ট টাইটেল *</label>
+          <input type="text" id="galInputTitle" required placeholder="যেমন: 3 kW Rooftop Solar Plant" class="w-full border rounded-xl p-2.5">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">লোকেশন *</label>
+          <input type="text" id="galInputLocation" required placeholder="যেমন: Udaipur, Tripura" class="w-full border rounded-xl p-2.5">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">ছবির URL *</label>
+          <input type="url" id="galInputUrl" required placeholder="https://images.unsplash.com/photo-..." class="w-full border rounded-xl p-2.5 font-mono">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">ক্যাটাগরি</label>
+          <select id="galInputCategory" class="w-full border rounded-xl p-2.5">
+            <option>Rooftop Solar</option>
+            <option>Inverter & Battery Setup</option>
+            <option>Commercial Solar</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full bg-solarGreen text-white font-bold py-2.5 rounded-xl hover:bg-solarDark mt-2">
+          গ্যালারিতে আপলোড করুন
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CLEAN LOGIN MODAL -->
+  <div id="loginModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white max-w-sm w-full rounded-3xl p-6 shadow-2xl relative">
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center mb-5">
+        <div class="w-10 h-10 bg-solarYellow/30 text-amber-900 rounded-xl flex items-center justify-center mx-auto mb-2">
+          <i data-lucide="lock" class="w-5 h-5"></i>
+        </div>
+        <h3 class="text-lg font-black text-slate-800">পোর্টালে লগইন করুন</h3>
+        <p class="text-xs text-slate-500">মোবাইল নম্বর ও ৬-ডিজিট পিন দিয়ে প্রবেশ করুন</p>
+      </div>
+
+      <form onsubmit="handleUniversalLogin(event)" class="space-y-4 text-sm">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Number (মোবাইল নম্বর)</label>
+          <input type="tel" id="loginMobile" required placeholder="10 Digit Number" class="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-solarGreen font-mono">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">6-Digit PIN</label>
+          <input type="password" id="loginPin" maxlength="6" pattern="[0-9]{6}" required placeholder="••••••" class="w-full border rounded-xl p-3 outline-none text-center font-mono tracking-widest focus:ring-2 focus:ring-solarGreen">
+        </div>
+
+        <button type="submit" class="w-full bg-solarGreen text-white font-black py-3 rounded-xl shadow hover:bg-solarDark transition">
+          লগইন করুন
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- PRINTABLE GST INVOICE MODAL -->
+  <div id="invoicePreviewModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center p-4 z-50 overflow-y-auto">
+    <div class="bg-white max-w-3xl w-full rounded-3xl shadow-2xl p-6 md:p-8 relative my-8">
+      <button onclick="closeModal('invoicePreviewModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div id="printableInvoiceArea" class="border border-slate-300 p-6 rounded-2xl bg-white text-slate-800 font-sans text-xs">
+        <div class="flex justify-between items-start border-b-2 border-slate-800 pb-4 mb-4">
+          <div>
+            <h1 class="text-xl font-black tracking-wider text-slate-900 leading-none">NRTA SOLAR</h1>
+            <span class="text-xs font-bold text-amber-600 block mt-0.5 uppercase tracking-widest">Powered by AK TRADERS</span>
+            <p class="text-[11px] text-slate-600 mt-1">
+              Authorized Solar EPC & Electrical Wholesaler<br>
+              Udaipur, Gomati District, Tripura - 799120<br>
+              GSTIN: <span class="font-mono font-bold">16AAXFA9876Q1ZB</span> | State Code: 16
+            </p>
+          </div>
+          <div class="text-right">
+            <span id="modalDocTitleBadge" class="inline-block bg-slate-900 text-white font-black px-3 py-1 rounded text-xs uppercase mb-1">
+              TAX INVOICE
+            </span>
+            <p class="text-[11px] font-mono text-slate-600">
+              Doc No: <span id="modalInvNo" class="font-bold text-slate-900">AKT/2026-27/0044</span><br>
+              Date: 13-Sep-2026
+            </p>
+          </div>
+        </div>
+
+        <div class="border-b border-slate-200 pb-3 mb-3">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Billed To (Customer):</span>
+          <h4 id="modalCustName" class="font-black text-sm text-slate-900">Tamal Dey</h4>
+          <p id="modalCustAddress" class="text-slate-600">Madhuban, Udaipur, Gomati Tripura - 799120 | Mobile: 9876543210</p>
+        </div>
+
+        <table class="w-full border-collapse border border-slate-300 text-left mb-4">
+          <thead class="bg-slate-100 border-b">
+            <tr>
+              <th class="p-2 border">Sl</th>
+              <th class="p-2 border">Description</th>
+              <th class="p-2 border">HSN</th>
+              <th class="p-2 border text-center">Qty</th>
+              <th class="p-2 border text-right">Rate (₹)</th>
+              <th class="p-2 border text-right">GST</th>
+              <th class="p-2 border text-right">Total (₹)</th>
+            </tr>
+          </thead>
+          <tbody id="modalRenderedTbody">
+          </tbody>
+        </table>
+
+        <div class="flex justify-between items-start border-t pt-3">
+          <div class="text-[10px] text-slate-600">
+            <b>Bank Details:</b> AK TRADERS | SBI Udaipur | A/C: 38990123456 | IFSC: SBIN0000198
+          </div>
+          <div class="text-right">
+            <p class="text-slate-500">Taxable Amount: <span id="modalTaxableDisplay" class="font-bold text-slate-800">₹ 1,25,000.00</span></p>
+            <p class="text-slate-500">Total GST: <span id="modalGstDisplay" class="font-bold text-slate-800">₹ 15,000.00</span></p>
+            <h3 class="text-base font-black text-slate-900 border-t pt-1">Grand Total: <span id="modalGrandDisplay">₹ 1,40,000.00</span></h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex justify-end gap-2">
+        <button onclick="downloadAsPdfDoc()" class="bg-solarGreen text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1 shadow hover:bg-solarDark">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> PDF ডাউনলোড করুন
+        </button>
+        <button onclick="triggerDirectBillPrint()" class="bg-slate-900 text-white font-bold px-4 py-2 rounded-xl text-xs hover:bg-slate-800 flex items-center gap-1">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i> প্রিন্ট করুন
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-5 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <span>NRTA Solar © 2026 | Powered by AK TRADERS</span>
+      <div class="flex gap-4">
+        <span id="footerPhoneDisplay">+91 98634 02515</span>
+        <span>Tripura DISCOM Approved</span>
+        <span>PM Surya Ghar Verified</span>
+      </div>
+    </div>
+  </footer>
 
   <script src="js/app.js"></script>
 </body>
