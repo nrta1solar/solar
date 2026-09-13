@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NRTA Solar — Powered by AK TRADERS (Master Enterprise v15.0)</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            solarGreen: '#0f766e',
+            solarDark: '#065f46',
+            solarYellow: '#f59e0b',
+            solarLight: '#f0fdf4'
+          }
+        }
+      }
+    }
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    @media print {
+      body * { visibility: hidden !important; }
+      #printableInvoiceArea, #printableInvoiceArea * { visibility: visible !important; }
+      #printableInvoiceArea {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 10mm !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
+
+  <header class="bg-solarDark text-white sticky top-0 z-50 shadow-lg border-b border-emerald-700/50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2.5 cursor-pointer" onclick="navigateTab('home')">
+        <div class="bg-solarYellow p-1.5 rounded-lg text-slate-900 shadow">
+          <i data-lucide="sun" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <span class="font-black text-xl tracking-wider block leading-none">NRTA SOLAR</span>
+          <span class="text-[10px] text-amber-300 font-bold tracking-wider uppercase">Powered by AK TRADERS</span>
+        </div>
+      </div>
+
+      <nav class="hidden lg:flex items-center space-x-5 text-sm font-semibold">
+        <button onclick="navigateTab('home')" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="home" class="w-4 h-4"></i> <span>Home</span></button>
+        <button onclick="scrollToEstimator()" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="calculator" class="w-4 h-4"></i> <span>Cost & EMI</span></button>
+        <button onclick="navigateTab('register')" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="user-plus" class="w-4 h-4"></i> <span>Customer Reg</span></button>
+        <button onclick="navigateTab('sales-register')" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 bg-emerald-800/80 px-2.5 py-1 rounded-lg border border-emerald-600"><i data-lucide="briefcase" class="w-4 h-4"></i> <span>Join Sales Partner</span></button>
+        <button onclick="navigateTab('gallery')" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="image" class="w-4 h-4"></i> <span>Gallery</span></button>
+        <button onclick="navigateTab('contact')" class="hover:text-solarYellow transition flex items-center gap-1.5"><i data-lucide="phone-call" class="w-4 h-4"></i> <span>Contact Us</span></button>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <div id="authHeaderBlock">
+          <button onclick="openLoginModal()" class="bg-solarYellow text-slate-950 font-black text-xs px-4 py-2 rounded-lg shadow hover:bg-amber-400 transition flex items-center gap-1.5"><i data-lucide="log-in" class="w-4 h-4"></i> <span>Login</span></button>
+        </div>
+        <div id="userHeaderBlock" class="hidden items-center space-x-2">
+          <span id="headerUserName" class="text-xs font-bold text-amber-300 font-mono"></span>
+          <button onclick="goToCurrentPortal()" class="bg-emerald-800 text-xs px-2.5 py-1 rounded font-bold hover:bg-emerald-700">পোর্টাল</button>
+          <button onclick="logoutUser()" class="text-xs bg-red-600/80 px-2 py-1 rounded hover:bg-red-600 font-bold">লগআউট</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- HOME SECTION -->
+    <section id="view-home" class="tab-view block">
+      <div class="bg-gradient-to-b from-solarDark to-solarGreen text-white py-16 px-4 text-center">
+        <div class="max-w-4xl mx-auto space-y-4">
+          <h1 class="text-3xl md:text-5xl font-black leading-tight">সৌরশক্তিতে বাঁচান মাসিক বিদ্যুৎ বিল, পান ₹৭৮,০০০ পর্যন্ত সরকারি সাবসিডি</h1>
+          <p class="text-emerald-100 text-sm md:text-base max-w-2xl mx-auto">NRTA SOLAR (Powered by AK TRADERS)-এর সাথে আপনার বাড়ি বা কারখানায় বসান আধুনিক সোলার প্ল্যান্ট।</p>
+          <button onclick="scrollToEstimator()" class="bg-solarYellow text-slate-950 font-black px-6 py-3 rounded-xl shadow-lg hover:bg-amber-400 transition">খরচ ও EMI হিসাব করুন</button>
+        </div>
+      </div>
+      
+      <!-- Embedded Estimator Box -->
+      <div id="homeEstimatorBox" class="max-w-5xl mx-auto px-4 py-12">
+        <div class="bg-white rounded-3xl shadow-xl border p-6">
+          <h2 class="text-xl font-bold mb-4">সোলার খরচ ও সহজ লোন EMI ক্যালকুলেটর</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+            <div>
+              <label class="font-bold block mb-1">সোলার ক্যাপাসিটি: <span id="capacitySliderLabel" class="text-solarGreen font-black">2.0 kW</span></label>
+              <input type="range" id="estCapacityRange" min="1.0" max="10.0" step="1.0" value="2.0" oninput="updateCapacityEstimator(this.value)" class="w-full accent-solarGreen">
+            </div>
+            <div class="bg-slate-50 p-4 rounded-2xl border">
+              <span class="text-xs text-slate-500 block">সাবসিডি বাদে আসল দেয় মূল্য:</span>
+              <span id="resNet" class="text-2xl font-black text-solarGreen">₹ 65,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMER REGISTRATION -->
+    <section id="view-register" class="tab-view hidden max-w-lg mx-auto px-4 py-10">
+      <div class="bg-white rounded-3xl shadow-xl border p-6">
+        <h2 class="text-2xl font-black text-slate-800 mb-4 text-center">Customer Registration</h2>
+        <form onsubmit="handleCustomerSignup(event)" class="space-y-4 text-sm">
+          <input type="text" id="regFullName" required placeholder="পূর্ণ নাম" class="w-full border rounded-xl p-3">
+          <input type="tel" id="regMobile" required placeholder="মোবাইল নম্বর" class="w-full border rounded-xl p-3">
+          <input type="password" id="regPin" required placeholder="৬-ডিজিট পিন" class="w-full border rounded-xl p-3">
+          <input type="password" id="regConfirmPin" required placeholder="পিন কনফার্ম করুন" class="w-full border rounded-xl p-3">
+          <input type="text" id="regReferralCode" placeholder="সেলস রেফারেল কোড (যেমন: NRTA-101)" class="w-full border rounded-xl p-3 uppercase font-mono">
+          <button type="submit" class="w-full bg-solarDark text-white font-black py-3 rounded-xl">রেজিস্ট্রেশন করুন</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SALES REGISTER -->
+    <section id="view-sales-register" class="tab-view hidden max-w-lg mx-auto px-4 py-10">
+      <div class="bg-white rounded-3xl shadow-xl border p-6">
+        <h2 class="text-2xl font-black text-slate-800 mb-4 text-center">Sales Partner Application</h2>
+        <form onsubmit="handleSalesPartnerApplication(event)" class="space-y-4 text-sm">
+          <input type="text" id="salesRegName" required placeholder="আপনার নাম" class="w-full border rounded-xl p-3">
+          <input type="tel" id="salesRegMobile" required placeholder="মোবাইল নম্বর" class="w-full border rounded-xl p-3">
+          <select id="salesRegDistrict" class="w-full border rounded-xl p-3"><option>Udaipur (Gomati)</option><option>Agartala (West Tripura)</option></select>
+          <input type="password" id="salesRegPin" required placeholder="৬-ডিজিট পিন" class="w-full border rounded-xl p-3">
+          <input type="password" id="salesRegConfirmPin" required placeholder="পিন কনফার্ম করুন" class="w-full border rounded-xl p-3">
+          <button type="submit" class="w-full bg-solarGreen text-white font-black py-3 rounded-xl">আবেদন সাবমিট করুন</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="view-gallery" class="tab-view hidden max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-3xl font-black text-center mb-8">আমাদের সফল ইনস্টলেশনের বাস্তব ছবি</h2>
+      <div id="publicGalleryGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="view-contact" class="tab-view hidden max-w-4xl mx-auto px-4 py-10">
+      <div class="bg-white rounded-3xl shadow-xl border p-6">
+        <h2 class="text-2xl font-black mb-4">যোগাযোগ — NRTA Solar (AK TRADERS)</h2>
+        <p id="contactDisplayAddress" class="text-sm text-slate-600 mb-2">Udaipur, Gomati District, Tripura - 799120</p>
+        <p id="contactDisplayPhone" class="text-solarGreen font-bold">+91 98634 02515</p>
+      </div>
+    </section>
+
+    <!-- CUSTOMER PORTAL -->
+    <section id="view-customer-portal" class="tab-view hidden max-w-6xl mx-auto px-4 py-8">
+      <div class="bg-solarDark text-white p-6 rounded-3xl mb-6 flex justify-between items-center">
+        <h2 class="text-xl font-black" id="custPortalName">স্বাগতম, Tamal Dey</h2>
+        <button onclick="logoutUser()" class="bg-red-600 text-xs px-3 py-1.5 rounded font-bold">লগআউট</button>
+      </div>
+      <div class="bg-white p-6 rounded-3xl border shadow-sm">
+        <h3 class="font-bold mb-4">ডকুমেন্টস আপলোড হাব (৮ স্লট)</h3>
+        <input type="file" onchange="handleDocUpload(this, 'aadhaar_card', 'আধার কার্ড')" class="text-xs">
+        <span id="docTag-aadhaar_card" class="text-xs text-emerald-600 font-bold block mt-1">পেন্ডিং</span>
+      </div>
+    </section>
+
+    <!-- SALES PORTAL -->
+    <section id="view-sales-portal" class="tab-view hidden max-w-6xl mx-auto px-4 py-8">
+      <div class="bg-slate-900 text-white p-6 rounded-3xl mb-6 flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-black" id="salesPortalAgentName">Amit Sharma</h2>
+          <p class="text-xs text-amber-300">Code: <span id="salesPortalAgentCode" class="font-mono">NRTA-101</span></p>
+        </div>
+        <button onclick="logoutUser()" class="bg-red-600 text-xs px-3 py-1.5 rounded font-bold">লগআউট</button>
+      </div>
+      <div class="bg-white p-6 rounded-3xl border shadow-sm">
+        <h3 class="font-bold mb-3">আমার রেফার করা কাস্টমার তালিকা</h3>
+        <table class="w-full text-xs text-left">
+          <thead class="bg-slate-50 border-b font-bold">
+            <tr><th class="p-2">নাম</th><th class="p-2">মোবাইল</th><th class="p-2">সোলার সাইজ</th><th class="p-2 text-right">স্ট্যাটাস</th></tr>
+          </thead>
+          <tbody id="salesReferredCustomersTbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ADMIN PORTAL -->
+    <section id="view-admin-portal" class="tab-view hidden max-w-7xl mx-auto px-4 py-8">
+      <div class="bg-slate-900 text-white p-6 rounded-3xl mb-6 flex justify-between items-center">
+        <h2 class="text-xl font-black">Super Admin Control Hub</h2>
+        <button onclick="logoutUser()" class="bg-red-600 text-xs px-3 py-1.5 rounded font-bold">লগআউট</button>
+      </div>
+      <div class="bg-white p-6 rounded-3xl border shadow-sm">
+        <h3 class="font-bold text-slate-800 mb-3">অ্যাডমিন কন্ট্রোল প্যানেল সচল রয়েছে।</h3>
+      </div>
+    </section>
+  </main>
+
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white max-w-sm w-full rounded-3xl p-6 relative">
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4">✕</button>
+      <h3 class="text-lg font-black mb-4">পোর্টালে লগইন করুন</h3>
+      <form onsubmit="handleUniversalLogin(event)" class="space-y-4 text-sm">
+        <input type="tel" id="loginMobile" required placeholder="মোবাইল নম্বর" class="w-full border rounded-xl p-3 font-mono">
+        <input type="password" id="loginPin" required placeholder="৬-ডিজিট পিন" class="w-full border rounded-xl p-3 text-center font-mono">
+        <button type="submit" class="w-full bg-solarGreen text-white font-black py-3 rounded-xl">লগইন</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
